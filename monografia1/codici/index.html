@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codici &middot; Problemi ai valori iniziali in fluidodinamica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<style>
+:root{--accento:#0d9488;--blu:#1E2761;--testo:#1f2933;--tenue:#5f6b7a;--bordo:#e3e8ee;--fondo:#f6f8fa;--carta:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--testo);background:var(--fondo);line-height:1.5}
+header{background:var(--blu);color:#fff;padding:28px 16px 22px}
+.contenuto{max-width:1000px;margin:0 auto;padding:0 16px}
+header .contenuto{padding:0}
+.sopratitolo{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+h1{font-size:1.55rem;margin:.25em 0 .2em}
+header p{margin:.2em 0;opacity:.9;font-size:.95rem}
+.azioni{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;border:1px solid var(--bordo);
+     background:var(--carta);color:var(--testo);text-decoration:none;font-size:.88rem;font-weight:600;cursor:pointer}
+header .btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:#fff}
+.btn.primario{background:var(--accento);border-color:var(--accento);color:#fff}
+main{padding:22px 0 40px}
+.nota{background:var(--carta);border:1px solid var(--bordo);border-left:4px solid var(--accento);border-radius:8px;
+      padding:12px 14px;font-size:.92rem;margin-bottom:18px}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.scheda{background:var(--carta);border:1px solid var(--bordo);border-radius:10px;padding:14px 15px;display:flex;flex-direction:column;gap:6px}
+.scheda .testa{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.etichetta{font-size:.72rem;font-weight:700;color:var(--accento);text-transform:uppercase;letter-spacing:.05em}
+.cap{font-size:.75rem;color:var(--tenue)}
+.scheda h2{font-family:"JetBrains Mono",monospace;font-size:.95rem;margin:0;word-break:break-all}
+.scheda p{margin:0;font-size:.9rem;color:var(--tenue)}
+.dip{font-size:.8rem;color:var(--tenue)}
+.scheda .azioni{margin-top:auto;padding-top:6px}
+#visore{display:none;background:var(--carta);border:1px solid var(--bordo);border-radius:10px;margin-bottom:22px;overflow:hidden}
+#visore .barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bordo)}
+#visore .barra strong{font-family:"JetBrains Mono",monospace;font-size:.95rem;word-break:break-all}
+#visore pre{margin:0;max-height:75vh;overflow:auto;font-size:.82rem}
+#visore pre code{font-family:"JetBrains Mono",monospace;padding:14px 16px;display:block}
+footer{color:var(--tenue);font-size:.8rem;text-align:center;padding:10px 16px 30px}
+</style>
+</head>
+<body>
+<header><div class="contenuto">
+  <div class="sopratitolo">Fluidodinamica numerica &middot; monografia1</div>
+  <h1>Problemi ai valori iniziali in fluidodinamica</h1>
+  <p>Programmi Python della monografia (NumPy, SciPy, Matplotlib). Prof. Ing. Biagio Raucci.</p>
+  <div class="azioni">
+    <a class="btn" href="../monografia1.pdf">Monografia (PDF)</a>
+    <a class="btn" href="monografia1_codici.zip" download>Scarica tutti i codici (.zip)</a>
+  </div>
+</div></header>
+<main class="contenuto">
+  <section id="visore" aria-live="polite">
+    <div class="barra">
+      <strong id="v-nome"></strong>
+      <span class="azioni" style="margin:0">
+        <button class="btn" id="v-copia" type="button">Copia</button>
+        <a class="btn" id="v-scarica" download>Scarica</a>
+        <button class="btn" id="v-chiudi" type="button">Chiudi</button>
+      </span>
+    </div>
+    <pre><code class="language-python" id="v-codice"></code></pre>
+  </section>
+  <div class="nota">
+    Per eseguire un programma servono anche i moduli da cui dipende (indicati in ogni scheda): il modo pi&ugrave;
+    semplice &egrave; scaricare l'archivio completo, estrarlo e lanciare <code>python3 nome_script.py</code> dalla cartella
+    dei codici. Le figure vengono salvate in una cartella <code>figure/</code> accanto a quella dei codici.
+  </div>
+  <div class="griglia" id="griglia"></div>
+</main>
+<footer>Indirizzo di questa pagina: <span class="mono">https://braucci.github.io/CFD/monografia1/codici/</span></footer>
+<script>
+const FILE = [{"nome": "ode_solvers.py", "etichetta": "Modulo", "capitolo": "Cap. 1", "descr": "Integratori a un passo (Eulero, RK2, Heun, Ralston, RK4), marcia nel tempo e curva c_d(Re) della sfera.", "righe": 99, "dip": []}, {"nome": "stile_grafici.py", "etichetta": "Modulo", "capitolo": "tutti", "descr": "Impostazioni comuni di Matplotlib: palette, formato e salvataggio delle figure.", "righe": 52, "dip": []}, {"nome": "es01_ordine_stabilita.py", "etichetta": "Esperimenti", "capitolo": "Cap. 1", "descr": "Verifica dell'ordine di accuratezza e della stabilita' assoluta; regioni di stabilita'.", "righe": 106, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "prog1_1_caduta_sfera.py", "etichetta": "Programma 1.1", "capitolo": "Cap. 2", "descr": "Caduta libera di una sfera in un fluido: RK4, velocita' terminale, confronto con il vuoto.", "righe": 97, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "prog1_1b_problemi.py", "etichetta": "Problemi 2.1-2.2", "capitolo": "Cap. 2", "descr": "Pallina da ping-pong in acqua, effetto della velocita' iniziale, gocce di pioggia.", "righe": 66, "dip": ["ode_solvers.py", "prog1_1_caduta_sfera.py", "stile_grafici.py"]}, {"nome": "prog1_2_pendolo.py", "etichetta": "Programma 1.2", "capitolo": "Cap. 3", "descr": "Pendolo con massa sferica nel vuoto, in aria e in acqua; periodo a grande ampiezza.", "righe": 69, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "prog1_3_ala_molla.py", "etichetta": "Programma 1.3", "capitolo": "Cap. 3", "descr": "Ala su molla in galleria del vento: modello aeroelastico, risposta alle raffiche.", "righe": 81, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "prog1_4_proiettile.py", "etichetta": "Programma 1.4", "capitolo": "Cap. 4", "descr": "Traiettoria di un proiettile sferico in aria e nel vuoto, effetto del vento, gittata.", "righe": 93, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "prog1_5_gittata_max.py", "etichetta": "Programma 1.5", "capitolo": "Cap. 4", "descr": "Angolo di tiro ottimo con il metodo del dimezzamento dell'intervallo.", "righe": 72, "dip": ["ode_solvers.py", "prog1_4_proiettile.py", "stile_grafici.py"]}, {"nome": "prog1_6_aliante.py", "etichetta": "Programma 1.6", "capitolo": "Cap. 5", "descr": "Traiettorie di un aliante a portanza e resistenza costanti; moto fugoide.", "righe": 56, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "prog1_7_scia_vorticosa.py", "etichetta": "Programma 1.7", "capitolo": "Cap. 6", "descr": "Avvolgimento della scia vorticosa dietro un'ala a carico ellittico (vortici puntiformi).", "righe": 92, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "prog1_8_cannone.py", "etichetta": "Problema 4.3", "capitolo": "Cap. 4", "descr": "Proietto d'artiglieria in atmosfera a densita' costante ed esponenziale.", "righe": 48, "dip": ["ode_solvers.py", "prog1_4_proiettile.py", "prog1_5_gittata_max.py", "stile_grafici.py"]}, {"nome": "prog1_9_razzo.py", "etichetta": "Problema 5.1", "capitolo": "Cap. 5", "descr": "Volo verticale di un razzo a massa variabile: RK2 e confronto con solve_ivp.", "righe": 65, "dip": ["ode_solvers.py", "stile_grafici.py"]}, {"nome": "esercizi_svolti.py", "etichetta": "Esercizi 1-17", "capitolo": "App. B", "descr": "Codice di tutti gli esercizi svolti: una funzione es_NN() per esercizio.", "righe": 450, "dip": ["ode_solvers.py", "prog1_1_caduta_sfera.py", "prog1_3_ala_molla.py", "prog1_4_proiettile.py", "prog1_5_gittata_max.py", "prog1_7_scia_vorticosa.py", "prog1_8_cannone.py", "prog1_9_razzo.py", "stile_grafici.py"]}];
+const griglia = document.getElementById("griglia");
+for (const f of FILE) {
+  const s = document.createElement("article");
+  s.className = "scheda";
+  s.innerHTML = `
+    <div class="testa"><span class="etichetta"></span><span class="cap"></span></div>
+    <h2></h2><p></p><div class="dip"></div>
+    <div class="azioni">
+      <button class="btn primario" type="button">Visualizza</button>
+      <a class="btn" download>Scarica</a>
+    </div>`;
+  s.querySelector(".etichetta").textContent = f.etichetta;
+  s.querySelector(".cap").textContent = f.capitolo + " · " + f.righe + " righe";
+  s.querySelector("h2").textContent = f.nome;
+  s.querySelector("p").textContent = f.descr;
+  s.querySelector(".dip").textContent = f.dip.length ? "Richiede: " + f.dip.join(", ") : "Nessuna dipendenza locale";
+  s.querySelector("a").href = f.nome;
+  s.querySelector("button").addEventListener("click", () => apri(f.nome, true));
+  griglia.appendChild(s);
+}
+const visore = document.getElementById("visore"), vCodice = document.getElementById("v-codice");
+async function apri(nome, scorri) {
+  visore.style.display = "block";
+  document.getElementById("v-nome").textContent = nome;
+  document.getElementById("v-scarica").href = nome;
+  vCodice.textContent = "Caricamento…";
+  try {
+    const r = await fetch(nome, {cache: "no-cache"});
+    if (!r.ok) throw new Error(r.status);
+    vCodice.textContent = await r.text();
+    if (window.hljs) { vCodice.removeAttribute("data-highlighted"); hljs.highlightElement(vCodice); }
+  } catch (e) {
+    vCodice.textContent = "Impossibile caricare " + nome + " (" + e.message + ").";
+  }
+  try { history.replaceState(null, "", "?f=" + encodeURIComponent(nome)); } catch (e) {}
+  if (scorri) visore.scrollIntoView({behavior: "smooth"});
+}
+document.getElementById("v-chiudi").addEventListener("click", () => {
+  visore.style.display = "none";
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+});
+document.getElementById("v-copia").addEventListener("click", async (ev) => {
+  try { await navigator.clipboard.writeText(vCodice.textContent); ev.target.textContent = "Copiato"; }
+  catch (e) { ev.target.textContent = "Copia non riuscita"; }
+  setTimeout(() => ev.target.textContent = "Copia", 1500);
+});
+const richiesto = new URLSearchParams(location.search).get("f");
+if (richiesto && FILE.some(f => f.nome === richiesto)) apri(richiesto, false);
+</script>
+</body>
+</html>
