@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codici &middot; Flussi non viscosi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<style>
+:root{--accento:#0d9488;--blu:#1E2761;--testo:#1f2933;--tenue:#5f6b7a;--bordo:#e3e8ee;--fondo:#f6f8fa;--carta:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--testo);background:var(--fondo);line-height:1.5}
+header{background:var(--blu);color:#fff;padding:28px 16px 22px}
+.contenuto{max-width:1000px;margin:0 auto;padding:0 16px}
+header .contenuto{padding:0}
+.sopratitolo{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+h1{font-size:1.55rem;margin:.25em 0 .2em}
+header p{margin:.2em 0;opacity:.9;font-size:.95rem}
+.azioni{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;border:1px solid var(--bordo);
+     background:var(--carta);color:var(--testo);text-decoration:none;font-size:.88rem;font-weight:600;cursor:pointer}
+header .btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:#fff}
+.btn.primario{background:var(--accento);border-color:var(--accento);color:#fff}
+main{padding:22px 0 40px}
+.nota{background:var(--carta);border:1px solid var(--bordo);border-left:4px solid var(--accento);border-radius:8px;
+      padding:12px 14px;font-size:.92rem;margin-bottom:18px}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.scheda{background:var(--carta);border:1px solid var(--bordo);border-radius:10px;padding:14px 15px;display:flex;flex-direction:column;gap:6px}
+.scheda .testa{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.etichetta{font-size:.72rem;font-weight:700;color:var(--accento);text-transform:uppercase;letter-spacing:.05em}
+.cap{font-size:.75rem;color:var(--tenue)}
+.scheda h2{font-family:"JetBrains Mono",monospace;font-size:.95rem;margin:0;word-break:break-all}
+.scheda p{margin:0;font-size:.9rem;color:var(--tenue)}
+.dip{font-size:.8rem;color:var(--tenue)}
+.scheda .azioni{margin-top:auto;padding-top:6px}
+#visore{display:none;background:var(--carta);border:1px solid var(--bordo);border-radius:10px;margin-bottom:22px;overflow:hidden}
+#visore .barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bordo)}
+#visore .barra strong{font-family:"JetBrains Mono",monospace;font-size:.95rem;word-break:break-all}
+#visore pre{margin:0;max-height:75vh;overflow:auto;font-size:.82rem}
+#visore pre code{font-family:"JetBrains Mono",monospace;padding:14px 16px;display:block}
+footer{color:var(--tenue);font-size:.8rem;text-align:center;padding:10px 16px 30px}
+</style>
+</head>
+<body>
+<header><div class="contenuto">
+  <div class="sopratitolo">Fluidodinamica numerica &middot; monografia2</div>
+  <h1>Flussi non viscosi</h1>
+  <p>Programmi Python della monografia (NumPy, SciPy, Matplotlib). Prof. Ing. Biagio Raucci.</p>
+  <div class="azioni">
+    <a class="btn" href="../monografia2.pdf">Monografia (PDF)</a>
+    <a class="btn" href="monografia2_codici.zip" download>Scarica tutti i codici (.zip)</a>
+  </div>
+</div></header>
+<main class="contenuto">
+  <section id="visore" aria-live="polite">
+    <div class="barra">
+      <strong id="v-nome"></strong>
+      <span class="azioni" style="margin:0">
+        <button class="btn" id="v-copia" type="button">Copia</button>
+        <a class="btn" id="v-scarica" download>Scarica</a>
+        <button class="btn" id="v-chiudi" type="button">Chiudi</button>
+      </span>
+    </div>
+    <pre><code class="language-python" id="v-codice"></code></pre>
+  </section>
+  <div class="nota">
+    Per eseguire un programma servono anche i moduli da cui dipende (indicati in ogni scheda): il modo pi&ugrave;
+    semplice &egrave; scaricare l'archivio completo, estrarlo e lanciare <code>python3 nome_script.py</code> dalla cartella
+    dei codici. Le figure vengono salvate in una cartella <code>figure/</code> accanto a quella dei codici.
+  </div>
+  <div class="griglia" id="griglia"></div>
+</main>
+<footer>Indirizzo di questa pagina: <span class="mono">https://braucci.github.io/CFD/monografia2/codici/</span></footer>
+<script>
+const FILE = [{"nome": "metodi_numerici.py", "etichetta": "Modulo", "capitolo": "tutti", "descr": "Sistemi tridiagonali (TRID, Thomas), ricerca delle linee di corrente, passi di Jacobi, Gauss-Seidel e SOR, omega ottimo.", "righe": 146, "dip": []}, {"nome": "stile_grafici.py", "etichetta": "Modulo", "capitolo": "tutti", "descr": "Impostazioni comuni di Matplotlib: palette, formato e salvataggio delle figure.", "righe": 52, "dip": []}, {"nome": "prog2_0_reticolo.py", "etichetta": "Introduttivo", "capitolo": "Cap. 1", "descr": "Reticolo di flusso del semicorpo di Rankine e verifica numerica dell'equazione di Laplace.", "righe": 93, "dip": ["stile_grafici.py"]}, {"nome": "prog2_1_flusso_radiale.py", "etichetta": "Programma 2.1", "capitolo": "Cap. 2", "descr": "Flusso radiale da sorgenti distribuite: problema ai limiti, sistema tridiagonale, ordine di convergenza.", "righe": 101, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog2_2_doppiette.py", "etichetta": "Programma 2.2", "capitolo": "Cap. 3", "descr": "Corrente uniforme e cinque doppiette: punti di ristagno, spessore e coefficiente di pressione.", "righe": 114, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog2_2b_flussi_elementari.py", "etichetta": "Complemento", "capitolo": "Cap. 3", "descr": "I quattro flussi elementari e il cilindro con circolazione: paradosso di d'Alembert e portanza di Kutta-Joukowski.", "righe": 98, "dip": ["stile_grafici.py"]}, {"nome": "prog2_3_karman_sfera.py", "etichetta": "Programma 2.3", "capitolo": "Cap. 4", "descr": "Metodo di von Karman per la sfera: segmenti di sorgenti, linee di corrente, Cp.", "righe": 106, "dip": ["stile_grafici.py"]}, {"nome": "prog2_3b_ellissoide.py", "etichetta": "Complemento", "capitolo": "Cap. 4", "descr": "Ellissoide prolato con il metodo di von Karman e confronto con la soluzione esatta; mal condizionamento.", "righe": 87, "dip": ["prog2_3_karman_sfera.py", "stile_grafici.py"]}, {"nome": "prog2_4_joukowski.py", "etichetta": "Programma 2.4", "capitolo": "Cap. 5", "descr": "Profilo di Joukowski per trasformazione conforme: condizione di Kutta, Cp, portanza e resistenza.", "righe": 153, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog2_4b_mappe.py", "etichetta": "Complemento", "capitolo": "Cap. 5", "descr": "Esempi di trasformazioni conformi: flusso nell'angolo retto, cilindro ellittico, lamina curva, profilo di Joukowski.", "righe": 85, "dip": ["stile_grafici.py"]}, {"nome": "prog2_4c_pannelli.py", "etichetta": "Complemento", "capitolo": "Cap. 5", "descr": "Metodo dei pannelli di vortice a intensita' lineare: profili NACA a 4 cifre, CL, alfa_0L, Cm.", "righe": 181, "dip": ["metodi_numerici.py", "prog2_4_joukowski.py", "stile_grafici.py"]}, {"nome": "prog2_5_vortice_rettangolo.py", "etichetta": "Programma 2.5", "capitolo": "Cap. 6", "descr": "Vortice in un recinto rettangolare: metodo di Liebmann/SOR e confronto con la serie di Fourier.", "righe": 85, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog2_5b_convergenza.py", "etichetta": "Complemento", "capitolo": "Cap. 6", "descr": "Convergenza di Jacobi, Gauss-Seidel e SOR, omega ottimo e soluzione diretta sparsa.", "righe": 133, "dip": ["metodi_numerici.py", "prog2_5_vortice_rettangolo.py", "stile_grafici.py"]}, {"nome": "prog2_6_camera.py", "etichetta": "Programma 2.6", "capitolo": "Cap. 7", "descr": "Flusso potenziale in una camera con parete inclinata a 45 gradi: SOR a confronto con Liebmann.", "righe": 81, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog2_7_cilindro_canale.py", "etichetta": "Programma 2.7", "capitolo": "Cap. 7", "descr": "Canale con un cilindro circolare: formula a cinque punti con bracci disuguali.", "righe": 131, "dip": ["stile_grafici.py"]}, {"nome": "prog2_8_onda_tubo.py", "etichetta": "Programma 2.8", "capitolo": "Cap. 8", "descr": "Schema leapfrog per l'equazione delle onde: ondina in un tubo chiuso-aperto, soluzione esatta.", "righe": 95, "dip": ["stile_grafici.py"]}, {"nome": "prog2_8b_courant.py", "etichetta": "Complemento", "capitolo": "Cap. 8", "descr": "Esperimenti sul numero di Courant: stabilita' di von Neumann e condizione CFL.", "righe": 66, "dip": ["prog2_8_onda_tubo.py", "stile_grafici.py"]}, {"nome": "prog2_9_onda_finita.py", "etichetta": "Programma 2.9", "capitolo": "Cap. 9", "descr": "Onda di ampiezza finita e formazione dell'urto: schema di Courant-Isaacson-Rees.", "righe": 117, "dip": ["stile_grafici.py"]}, {"nome": "prog2_10_maccormack.py", "etichetta": "Programma 2.10", "capitolo": "Cap. 10", "descr": "Convezione non lineare con lo schema di MacCormack: posizione e struttura dell'urto.", "righe": 85, "dip": ["stile_grafici.py"]}, {"nome": "prog2_11_beam_warming.py", "etichetta": "Programma 2.11", "capitolo": "Cap. 10", "descr": "Schema implicito di Beam-Warming con dissipazione artificiale del quarto ordine.", "righe": 65, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog2_12_burgers.py", "etichetta": "Complemento", "capitolo": "Cap. 10", "descr": "Equazione di Burgers: soluzione esatta di Benton-Platzman, MacCormack e Beam-Warming.", "righe": 99, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog2_13_tubo_elastico.py", "etichetta": "Applicazione", "capitolo": "Cap. 11", "descr": "Flusso pulsante in un tubo elastico (arteria): sistema iperbolico risolto con MacCormack.", "righe": 154, "dip": ["stile_grafici.py"]}, {"nome": "esercizi_svolti.py", "etichetta": "Esercizi 1-17", "capitolo": "App. B", "descr": "Codice di tutti gli esercizi svolti: una funzione es_NN() per esercizio.", "righe": 699, "dip": ["metodi_numerici.py", "prog2_12_burgers.py", "prog2_13_tubo_elastico.py", "prog2_5_vortice_rettangolo.py", "prog2_5b_convergenza.py", "prog2_9_onda_finita.py", "stile_grafici.py"]}];
+const griglia = document.getElementById("griglia");
+for (const f of FILE) {
+  const s = document.createElement("article");
+  s.className = "scheda";
+  s.innerHTML = `
+    <div class="testa"><span class="etichetta"></span><span class="cap"></span></div>
+    <h2></h2><p></p><div class="dip"></div>
+    <div class="azioni">
+      <button class="btn primario" type="button">Visualizza</button>
+      <a class="btn" download>Scarica</a>
+    </div>`;
+  s.querySelector(".etichetta").textContent = f.etichetta;
+  s.querySelector(".cap").textContent = f.capitolo + " · " + f.righe + " righe";
+  s.querySelector("h2").textContent = f.nome;
+  s.querySelector("p").textContent = f.descr;
+  s.querySelector(".dip").textContent = f.dip.length ? "Richiede: " + f.dip.join(", ") : "Nessuna dipendenza locale";
+  s.querySelector("a").href = f.nome;
+  s.querySelector("button").addEventListener("click", () => apri(f.nome, true));
+  griglia.appendChild(s);
+}
+const visore = document.getElementById("visore"), vCodice = document.getElementById("v-codice");
+async function apri(nome, scorri) {
+  visore.style.display = "block";
+  document.getElementById("v-nome").textContent = nome;
+  document.getElementById("v-scarica").href = nome;
+  vCodice.textContent = "Caricamento…";
+  try {
+    const r = await fetch(nome, {cache: "no-cache"});
+    if (!r.ok) throw new Error(r.status);
+    vCodice.textContent = await r.text();
+    if (window.hljs) { vCodice.removeAttribute("data-highlighted"); hljs.highlightElement(vCodice); }
+  } catch (e) {
+    vCodice.textContent = "Impossibile caricare " + nome + " (" + e.message + ").";
+  }
+  try { history.replaceState(null, "", "?f=" + encodeURIComponent(nome)); } catch (e) {}
+  if (scorri) visore.scrollIntoView({behavior: "smooth"});
+}
+document.getElementById("v-chiudi").addEventListener("click", () => {
+  visore.style.display = "none";
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+});
+document.getElementById("v-copia").addEventListener("click", async (ev) => {
+  try { await navigator.clipboard.writeText(vCodice.textContent); ev.target.textContent = "Copiato"; }
+  catch (e) { ev.target.textContent = "Copia non riuscita"; }
+  setTimeout(() => ev.target.textContent = "Copia", 1500);
+});
+const richiesto = new URLSearchParams(location.search).get("f");
+if (richiesto && FILE.some(f => f.nome === richiesto)) apri(richiesto, false);
+</script>
+</body>
+</html>
