@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codici &middot; Flussi viscosi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<style>
+:root{--accento:#0d9488;--blu:#1E2761;--testo:#1f2933;--tenue:#5f6b7a;--bordo:#e3e8ee;--fondo:#f6f8fa;--carta:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--testo);background:var(--fondo);line-height:1.5}
+header{background:var(--blu);color:#fff;padding:28px 16px 22px}
+.contenuto{max-width:1000px;margin:0 auto;padding:0 16px}
+header .contenuto{padding:0}
+.sopratitolo{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+h1{font-size:1.55rem;margin:.25em 0 .2em}
+header p{margin:.2em 0;opacity:.9;font-size:.95rem}
+.azioni{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;border:1px solid var(--bordo);
+     background:var(--carta);color:var(--testo);text-decoration:none;font-size:.88rem;font-weight:600;cursor:pointer}
+header .btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:#fff}
+.btn.primario{background:var(--accento);border-color:var(--accento);color:#fff}
+main{padding:22px 0 40px}
+.nota{background:var(--carta);border:1px solid var(--bordo);border-left:4px solid var(--accento);border-radius:8px;
+      padding:12px 14px;font-size:.92rem;margin-bottom:18px}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.scheda{background:var(--carta);border:1px solid var(--bordo);border-radius:10px;padding:14px 15px;display:flex;flex-direction:column;gap:6px}
+.scheda .testa{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.etichetta{font-size:.72rem;font-weight:700;color:var(--accento);text-transform:uppercase;letter-spacing:.05em}
+.cap{font-size:.75rem;color:var(--tenue)}
+.scheda h2{font-family:"JetBrains Mono",monospace;font-size:.95rem;margin:0;word-break:break-all}
+.scheda p{margin:0;font-size:.9rem;color:var(--tenue)}
+.dip{font-size:.8rem;color:var(--tenue)}
+.scheda .azioni{margin-top:auto;padding-top:6px}
+#visore{display:none;background:var(--carta);border:1px solid var(--bordo);border-radius:10px;margin-bottom:22px;overflow:hidden}
+#visore .barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bordo)}
+#visore .barra strong{font-family:"JetBrains Mono",monospace;font-size:.95rem;word-break:break-all}
+#visore pre{margin:0;max-height:75vh;overflow:auto;font-size:.82rem}
+#visore pre code{font-family:"JetBrains Mono",monospace;padding:14px 16px;display:block}
+footer{color:var(--tenue);font-size:.8rem;text-align:center;padding:10px 16px 30px}
+</style>
+</head>
+<body>
+<header><div class="contenuto">
+  <div class="sopratitolo">Fluidodinamica numerica &middot; monografia3</div>
+  <h1>Flussi viscosi</h1>
+  <p>Programmi Python della monografia (NumPy, SciPy, Matplotlib). Prof. Ing. Biagio Raucci.</p>
+  <div class="azioni">
+    <a class="btn" href="../monografia3.pdf">Monografia (PDF)</a>
+    <a class="btn" href="monografia3_codici.zip" download>Scarica tutti i codici (.zip)</a>
+  </div>
+</div></header>
+<main class="contenuto">
+  <section id="visore" aria-live="polite">
+    <div class="barra">
+      <strong id="v-nome"></strong>
+      <span class="azioni" style="margin:0">
+        <button class="btn" id="v-copia" type="button">Copia</button>
+        <a class="btn" id="v-scarica" download>Scarica</a>
+        <button class="btn" id="v-chiudi" type="button">Chiudi</button>
+      </span>
+    </div>
+    <pre><code class="language-python" id="v-codice"></code></pre>
+  </section>
+  <div class="nota">
+    Per eseguire un programma servono anche i moduli da cui dipende (indicati in ogni scheda): il modo pi&ugrave;
+    semplice &egrave; scaricare l'archivio completo, estrarlo e lanciare <code>python3 nome_script.py</code> dalla cartella
+    dei codici. Le figure vengono salvate in una cartella <code>figure/</code> accanto a quella dei codici.
+  </div>
+  <div class="griglia" id="griglia"></div>
+</main>
+<footer>Indirizzo di questa pagina: <span class="mono">https://braucci.github.io/CFD/monografia3/codici/</span></footer>
+<script>
+const FILE = [{"nome": "metodi_numerici.py", "etichetta": "Modulo", "capitolo": "tutti", "descr": "Sistemi tridiagonali (TRID, Thomas), Runge-Kutta del quarto ordine, Liebmann e SOR per l'equazione di Poisson, matrice di Chebyshev, numeri d'onda di Fourier.", "righe": 168, "dip": []}, {"nome": "stile_grafici.py", "etichetta": "Modulo", "capitolo": "tutti", "descr": "Impostazioni comuni di Matplotlib: palette, formato e salvataggio delle figure.", "righe": 58, "dip": []}, {"nome": "prog3_0_soluzioni_esatte.py", "etichetta": "Introduttivo", "capitolo": "Cap. 1", "descr": "Famiglia di Couette-Poiseuille: profili, vorticita', sforzo e funzione di dissipazione.", "righe": 61, "dip": ["stile_grafici.py"]}, {"nome": "prog3_1_blasius.py", "etichetta": "Programma 3.1", "capitolo": "Cap. 2", "descr": "Problema di Blasius: Runge-Kutta e metodo del tiro con dimezzamento; spessori e coefficienti d'attrito.", "righe": 106, "dip": ["stile_grafici.py"]}, {"nome": "prog3_1b_tiro.py", "etichetta": "Complemento", "capitolo": "Cap. 2", "descr": "Tiro con il metodo di Newton (equazioni variazionali), secante e solve_bvp; accuratezza e influenza di eta_max.", "righe": 135, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_1c_karman.py", "etichetta": "Complemento", "capitolo": "Cap. 2", "descr": "Metodo integrale di von Karman-Pohlhausen (profili di prova) e serie di potenze di Blasius con il suo raggio di convergenza.", "righe": 112, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_2_termometro.py", "etichetta": "Programma 3.2", "capitolo": "Cap. 3", "descr": "Lamina adiabatica (termometro a lamina): differenze finite, nodo fittizio, TRID; fattore di recupero.", "righe": 82, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_2b_prandtl.py", "etichetta": "Complemento", "capitolo": "Cap. 3", "descr": "Fattore di recupero e numero di Nusselt per quadratura; leggi asintotiche per Pr grande e piccolo.", "righe": 122, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_3_canale.py", "etichetta": "Programma 3.3", "capitolo": "Cap. 4", "descr": "Canale inclinato a pelo libero: equazione di Poisson con SOR, portata con la regola dei trapezi.", "righe": 75, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_3b_condotti.py", "etichetta": "Complemento", "capitolo": "Cap. 4", "descr": "Soluzione in serie del condotto rettangolare, soluzione diretta sparsa, ordine e Richardson, effetto delle pareti laterali.", "righe": 114, "dip": ["stile_grafici.py"]}, {"nome": "prog3_4_rayleigh.py", "etichetta": "Programma 3.4", "capitolo": "Cap. 5", "descr": "Schema esplicito FTCS: avviamento della corrente di Couette e problema di Rayleigh.", "righe": 97, "dip": ["stile_grafici.py"]}, {"nome": "prog3_4b_accuratezza.py", "etichetta": "Complemento", "capitolo": "Cap. 5", "descr": "Accuratezza dello schema esplicito, il caso R = 1/6, stabilita' di von Neumann.", "righe": 83, "dip": ["stile_grafici.py"]}, {"nome": "prog3_5_canale_impulsivo.py", "etichetta": "Programma 3.5", "capitolo": "Cap. 6", "descr": "Schema implicito: avviamento della corrente in un canale per un gradiente di pressione improvviso.", "righe": 92, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_5b_crank_nicolson.py", "etichetta": "Complemento", "capitolo": "Cap. 6", "descr": "Schema theta: implicito e Crank-Nicolson a confronto, ordini e oscillazioni.", "righe": 142, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_5c_adi.py", "etichetta": "Complemento", "capitolo": "Cap. 6", "descr": "Metodo ADI (Peaceman-Rachford) per l'avviamento della corrente in un condotto quadrato; confronto con la serie esatta e con lo schema esplicito.", "righe": 149, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_6_cavita_stokes.py", "etichetta": "Programma 3.6", "capitolo": "Cap. 7", "descr": "Flusso di Stokes nella cavita' mossa da una lastra: funzione di corrente e vorticita', iterazione accoppiata.", "righe": 103, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_6b_cavita_fine.py", "etichetta": "Complemento", "capitolo": "Cap. 7", "descr": "Cavita' di Stokes su griglie fini con soluzione diretta accoppiata; formule di parete; vortici di Moffatt.", "righe": 194, "dip": ["stile_grafici.py"]}, {"nome": "prog3_6c_lubrificazione.py", "etichetta": "Complemento", "capitolo": "Cap. 7", "descr": "Teoria della lubrificazione: pattino piano (equazione di Reynolds); verifica simbolica della sfera di Stokes; sedimentazione.", "righe": 137, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_7a_benard.py", "etichetta": "Complemento", "capitolo": "Cap. 8", "descr": "Stabilita' marginale di Rayleigh-Benard con le differenze finite: problema agli autovalori generalizzato.", "righe": 119, "dip": ["stile_grafici.py"]}, {"nome": "prog3_7c_benard_varianti.py", "etichetta": "Complemento", "capitolo": "Cap. 8", "descr": "Benard con Chebyshev: tassi di crescita (scambio delle stabilita'), condizioni al contorno rigide/libere, stima variazionale.", "righe": 151, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_7_chebyshev.py", "etichetta": "Programma 3.7", "capitolo": "Cap. 9", "descr": "Collocazione di Chebyshev per un problema ai limiti: accuratezza spettrale.", "righe": 82, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_7b_runge.py", "etichetta": "Complemento", "capitolo": "Cap. 9", "descr": "Fenomeno di Runge, nodi di Chebyshev, ellisse di Bernstein, costante di Lebesgue, condizionamento di D^2.", "righe": 90, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_8_orr_sommerfeld.py", "etichetta": "Programma 3.8", "capitolo": "Cap. 9", "descr": "Equazione di Orr-Sommerfeld per la corrente di Poiseuille piana: spettro e autofunzioni.", "righe": 97, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_8b_curva_neutra.py", "etichetta": "Complemento", "capitolo": "Cap. 9", "descr": "Curva di stabilita' neutra e punto critico della corrente di Poiseuille.", "righe": 66, "dip": ["metodi_numerici.py", "prog3_8_orr_sommerfeld.py", "stile_grafici.py"]}, {"nome": "prog3_9_fourier.py", "etichetta": "Programma 3.9", "capitolo": "Cap. 10", "descr": "Metodo pseudo-spettrale di Fourier per un problema ai limiti periodico; convergenza.", "righe": 81, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_9b_burgers.py", "etichetta": "Complemento", "capitolo": "Cap. 10", "descr": "Equazione di Burgers pseudo-spettrale: regola dei 3/2, soluzione di Cole-Hopf, FFT ricorsiva.", "righe": 176, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "prog3_10_convezione_diffusione.py", "etichetta": "Programma 3.10", "capitolo": "Cap. 10", "descr": "Convezione-diffusione in un campo di moto assegnato: differenze finite in x, Fourier in y.", "righe": 131, "dip": ["metodi_numerici.py", "stile_grafici.py"]}, {"nome": "esercizi_svolti.py", "etichetta": "Esercizi 1-18", "capitolo": "App. B", "descr": "Codice di tutti gli esercizi svolti: una funzione es_NN() per esercizio.", "righe": 1243, "dip": ["metodi_numerici.py", "prog3_10_convezione_diffusione.py", "prog3_7a_benard.py", "stile_grafici.py"]}];
+const griglia = document.getElementById("griglia");
+for (const f of FILE) {
+  const s = document.createElement("article");
+  s.className = "scheda";
+  s.innerHTML = `
+    <div class="testa"><span class="etichetta"></span><span class="cap"></span></div>
+    <h2></h2><p></p><div class="dip"></div>
+    <div class="azioni">
+      <button class="btn primario" type="button">Visualizza</button>
+      <a class="btn" download>Scarica</a>
+    </div>`;
+  s.querySelector(".etichetta").textContent = f.etichetta;
+  s.querySelector(".cap").textContent = f.capitolo + " · " + f.righe + " righe";
+  s.querySelector("h2").textContent = f.nome;
+  s.querySelector("p").textContent = f.descr;
+  s.querySelector(".dip").textContent = f.dip.length ? "Richiede: " + f.dip.join(", ") : "Nessuna dipendenza locale";
+  s.querySelector("a").href = f.nome;
+  s.querySelector("button").addEventListener("click", () => apri(f.nome, true));
+  griglia.appendChild(s);
+}
+const visore = document.getElementById("visore"), vCodice = document.getElementById("v-codice");
+async function apri(nome, scorri) {
+  visore.style.display = "block";
+  document.getElementById("v-nome").textContent = nome;
+  document.getElementById("v-scarica").href = nome;
+  vCodice.textContent = "Caricamento…";
+  try {
+    const r = await fetch(nome, {cache: "no-cache"});
+    if (!r.ok) throw new Error(r.status);
+    vCodice.textContent = await r.text();
+    if (window.hljs) { vCodice.removeAttribute("data-highlighted"); hljs.highlightElement(vCodice); }
+  } catch (e) {
+    vCodice.textContent = "Impossibile caricare " + nome + " (" + e.message + ").";
+  }
+  try { history.replaceState(null, "", "?f=" + encodeURIComponent(nome)); } catch (e) {}
+  if (scorri) visore.scrollIntoView({behavior: "smooth"});
+}
+document.getElementById("v-chiudi").addEventListener("click", () => {
+  visore.style.display = "none";
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+});
+document.getElementById("v-copia").addEventListener("click", async (ev) => {
+  try { await navigator.clipboard.writeText(vCodice.textContent); ev.target.textContent = "Copiato"; }
+  catch (e) { ev.target.textContent = "Copia non riuscita"; }
+  setTimeout(() => ev.target.textContent = "Copia", 1500);
+});
+const richiesto = new URLSearchParams(location.search).get("f");
+if (richiesto && FILE.some(f => f.nome === richiesto)) apri(richiesto, false);
+</script>
+</body>
+</html>
