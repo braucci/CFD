@@ -125,7 +125,7 @@ footer a{color:inherit}
       <div>
         <div class="sopratitolo">Costruzioni aeronautiche &middot; Fluidodinamica numerica</div>
         <h1>Monografie di fluidodinamica numerica</h1>
-        <p class="sotto">Un corso a moduli, dal linguaggio Python e dall'integrazione delle equazioni del moto fino alle equazioni di Navier&ndash;Stokes: per ogni monografia il PDF, i programmi Python commentati e gli esercizi svolti. I QR code nel margine dei PDF puntano ai file di questa pagina.</p>
+        <p class="sotto">Un corso a moduli, dal linguaggio Python e dall'integrazione delle equazioni del moto fino alle equazioni di Navier&ndash;Stokes e a OpenFOAM: per ogni monografia il PDF, i programmi Python commentati, gli esercizi svolti e, per il Modulo 5, i casi OpenFOAM pronti da eseguire. I QR code nel margine dei PDF puntano ai file di questa pagina.</p>
       </div>
       <div class="strumenti">
         <button class="btn" id="tema" type="button" title="Cambia tema">
@@ -272,6 +272,31 @@ const MONOGRAFIE = [
       "Variabili primitive: griglia sfalsata e passi frazionari",
       "Formulazione vorticità–funzione di corrente: cavità e cilindro"
     ]
+  },
+  {
+    modulo: 5, cartella: "monografia5", stato: "pubblicata", colore: "#B9770E", casi: 17,
+    titolo: "Il metodo dei volumi finiti e OpenFOAM",
+    sottotitolo: "Dalla discretizzazione ai volumi finiti all'uso consapevole di OpenFOAM: mesh, schemi, solutori, accoppiamento pressione–velocità, turbolenza, comprimibile, casi aeronautici 2D e 3D; con strumenti Python di lettura e verifica.",
+    pagine: 185, programmi: 24, esercizi: 20,
+    parole: "OpenFOAM volumi finiti FVM Moukalled mesh blockMesh snappyHexMesh checkMesh non ortogonalita' skewness gradiente Green-Gauss least squares laplaciano correzione non ortogonale convezione upwind linearUpwind QUICK TVD limitatori vanLeer Minmod SuperBee MUSCL Euler backward Crank-Nicolson Courant sottorilassamento residui solutori lineari GAMG PCG PBiCGStab SIMPLE SIMPLEC PISO PIMPLE Rhie-Chow cavita' Ghia turbolenza RANS Spalart-Allmaras k-epsilon k-omega SST funzioni di parete y+ lastra piana gradino comprimibile shockFluid tubo d'urto Sod Riemann urto obliquo condizioni al contorno codedFixedValue solutore personalizzato wmake NACA 0012 polare GCI convergenza di griglia Richardson cilindro von Karman Strouhal semiala snappyHexMesh parallelo decomposePar linea portante verifica validazione ParaView foamcase",
+    capitoli: [
+      "Primi passi: installare, eseguire, leggere",
+      "Le equazioni di conservazione e il metodo dei volumi finiti",
+      "La mesh ai volumi finiti",
+      "Gradienti e termine diffusivo",
+      "Il termine convettivo e gli schemi ad alta risoluzione",
+      "Tempo, sorgenti, sottorilassamento e residui",
+      "La soluzione dei sistemi lineari",
+      "L'accoppiamento fra pressione e velocità",
+      "La turbolenza: modelli RANS e trattamento di parete",
+      "Flussi comprimibili",
+      "Le condizioni al contorno",
+      "Dentro il codice: leggere e scrivere OpenFOAM",
+      "Il profilo NACA 0012: polare e convergenza di griglia",
+      "Un transitorio: la scia di von Kármán",
+      "Un caso tridimensionale: la semiala con snappyHexMesh in parallelo",
+      "Verifica, validazione e buone pratiche: dal problema al caso"
+    ]
   }
 ];
 
@@ -279,6 +304,7 @@ const MONOGRAFIE = [
 const ICONE = {
   pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h8"/></svg>',
   codice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg>',
+  casi: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7M12 11v10"/></svg>',
   zip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>'
 };
 
@@ -296,11 +322,12 @@ function scheda(m){
     ? `<details><summary>${m.capitoli.length} capitoli</summary><ol>${m.capitoli.map(c=>`<li>${c}</li>`).join("")}</ol></details>`
     : `<p class="sottotitolo"><em>Indice in definizione.</em></p>`;
   const numeri = prep ? "" : `<div class="numeri">
-      <span><b>${m.pagine}</b> pagine</span><span><b>${m.programmi}</b> programmi Python</span><span><b>${m.esercizi}</b> esercizi svolti</span></div>`;
+      <span><b>${m.pagine}</b> pagine</span><span><b>${m.programmi}</b> programmi Python</span>${m.casi ? `<span><b>${m.casi}</b> casi OpenFOAM</span>` : ""}<span><b>${m.esercizi}</b> esercizi svolti</span></div>`;
   const azioni = prep ? `<div class="azioni"><span class="btn" aria-disabled="true" style="opacity:.55;cursor:default">${ICONE.pdf}<span>In preparazione</span></span></div>`
     : `<div class="azioni">
         <a class="btn primario" href="${base}/${base}.pdf">${ICONE.pdf}<span>PDF</span></a>
         <a class="btn" href="${base}/codici/index.html">${ICONE.codice}<span>Codici</span></a>
+        ${m.casi ? `<a class="btn" href="${base}/casi/index.html">${ICONE.casi}<span>Casi OpenFOAM</span></a>` : ""}
         <a class="btn" href="${base}/codici/${base}_codici.zip" download>${ICONE.zip}<span>Archivio zip</span></a>
       </div>`;
   const titolo = prep ? m.titolo : `<a href="${base}/codici/index.html">${m.titolo}</a>`;
