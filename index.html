@@ -125,7 +125,7 @@ footer a{color:inherit}
       <div>
         <div class="sopratitolo">Costruzioni aeronautiche &middot; Fluidodinamica numerica</div>
         <h1>Monografie di fluidodinamica numerica</h1>
-        <p class="sotto">Un corso a moduli, dall'integrazione delle equazioni del moto alle equazioni di Navier&ndash;Stokes: per ogni monografia il PDF, i programmi Python commentati e gli esercizi svolti. I QR code nel margine dei PDF puntano ai file di questa pagina.</p>
+        <p class="sotto">Un corso a moduli, dal linguaggio Python e dall'integrazione delle equazioni del moto fino alle equazioni di Navier&ndash;Stokes: per ogni monografia il PDF, i programmi Python commentati e gli esercizi svolti. I QR code nel margine dei PDF puntano ai file di questa pagina.</p>
       </div>
       <div class="strumenti">
         <button class="btn" id="tema" type="button" title="Cambia tema">
@@ -161,7 +161,7 @@ footer a{color:inherit}
   <section class="info">
     <div class="riquadro">
       <h3>Come usare i codici</h3>
-      <p>Ogni monografia ha una pagina <span class="mono">codici/</span> che elenca i programmi con le dipendenze, li mostra con l'evidenziazione della sintassi e permette di scaricarli uno per uno o in un unico archivio zip. Servono Python&nbsp;&ge;&nbsp;3.9 con <span class="mono">numpy</span>, <span class="mono">scipy</span> e <span class="mono">matplotlib</span>.</p>
+      <p>Ogni monografia ha una pagina <span class="mono">codici/</span> che elenca i programmi con le dipendenze, li mostra con l'evidenziazione della sintassi e permette di scaricarli uno per uno o in un unico archivio zip. Servono Python&nbsp;&ge;&nbsp;3.9 con <span class="mono">numpy</span>, <span class="mono">scipy</span>, <span class="mono">matplotlib</span> e <span class="mono">sympy</span>. Chi non ha mai programmato in Python parte dal Modulo&nbsp;0.</p>
     </div>
     <div class="riquadro viola">
       <h3>Struttura di ogni modulo</h3>
@@ -186,6 +186,24 @@ footer a{color:inherit}
    stato     -> "pubblicata" oppure "prep" (in preparazione: niente link)
    ===================================================================== */
 const MONOGRAFIE = [
+  {
+    modulo: 0, cartella: "monografia0", stato: "pubblicata", colore: "#566573",
+    titolo: "Python per la fluidodinamica numerica",
+    sottotitolo: "Il linguaggio, NumPy, SciPy, Matplotlib e SymPy per leggere e scrivere i programmi del corso: il modulo propedeutico.",
+    pagine: 117, programmi: 9, esercizi: 20,
+    parole: "Python programmazione variabili float virgola mobile IEEE cicli funzioni lambda liste tuple dizionari NumPy array slicing viste broadcasting vettorializzazione Matplotlib figure contour streamplot SciPy brentq fsolve solve_ivp solve_bvp sparse SymPy simbolico lambdify eccezioni assert file json profilo ISA NACA letture guidate",
+    capitoli: [
+      "Primi passi: l'interprete, i numeri, le stringhe",
+      "Controllo del flusso e funzioni",
+      "Liste, tuple, dizionari e stringhe",
+      "NumPy: gli array e le differenze finite",
+      "Le figure con Matplotlib",
+      "La cassetta degli attrezzi di SciPy",
+      "Calcolo simbolico con SymPy",
+      "Anatomia di un programma del corso (tre letture guidate)",
+      "Errori, verifiche, file e tempi"
+    ]
+  },
   {
     modulo: 1, cartella: "monografia1", stato: "pubblicata", colore: "#DC7633",
     titolo: "Problemi ai valori iniziali in fluidodinamica",
