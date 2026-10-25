@@ -3,394 +3,161 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fluidodinamica numerica &middot; Monografie</title>
-<meta name="description" content="Portale delle monografie didattiche di fluidodinamica numerica (CFD) con programmi Python: PDF, codici e archivi scaricabili.">
+<title>Casi OpenFOAM &middot; Il metodo dei volumi finiti e OpenFOAM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <style>
-/* ---------- tema (stessa palette delle pagine "codici") ---------- */
-:root{
-  --blu:#1E2761; --blu2:#2b3a8a; --accento:#0d9488; --accento2:#0b7c72;
-  --arancio:#DC7633; --verde:#1E8449; --viola:#6C3483;
-  --testo:#1f2933; --tenue:#5f6b7a; --bordo:#e3e8ee; --fondo:#f6f8fa; --carta:#ffffff;
-  --ombra:0 1px 2px rgba(16,24,40,.06),0 8px 24px -12px rgba(16,24,40,.18);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --testo:#e6e9ef; --tenue:#9aa5b4; --bordo:#2b3240; --fondo:#0f1319; --carta:#171c25;
-    --ombra:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
-  }
-}
-:root[data-theme="dark"]{
-  --testo:#e6e9ef; --tenue:#9aa5b4; --bordo:#2b3240; --fondo:#0f1319; --carta:#171c25;
-  --ombra:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
-}
+:root{--accento:#0d9488;--blu:#1E2761;--testo:#1f2933;--tenue:#5f6b7a;--bordo:#e3e8ee;--fondo:#f6f8fa;--carta:#fff}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--testo);background:var(--fondo);line-height:1.55}
-a{color:var(--accento2)}
-.contenuto{max-width:1100px;margin:0 auto;padding:0 16px}
-code,.mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;font-size:.88em}
-
-/* ---------- intestazione ---------- */
-header{background:linear-gradient(135deg,var(--blu) 0%,var(--blu2) 60%,#1b6f6a 100%);color:#fff;padding:34px 0 30px;position:relative;overflow:hidden}
-header::after{content:"";position:absolute;inset:0;background:
-  radial-gradient(600px 260px at 85% 20%,rgba(255,255,255,.10),transparent 60%),
-  repeating-linear-gradient(-25deg,rgba(255,255,255,.035) 0 2px,transparent 2px 18px);pointer-events:none}
-header .contenuto{position:relative;z-index:1}
-.sopratitolo{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85;font-weight:600}
-h1{font-size:clamp(1.6rem,3.6vw,2.4rem);margin:.2em 0 .25em;line-height:1.15;letter-spacing:-.01em}
-header p.sotto{margin:.3em 0 0;max-width:700px;opacity:.92;font-size:1rem}
-.riga-alto{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.strumenti{display:flex;gap:8px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;border:1px solid var(--bordo);
-     background:var(--carta);color:var(--testo);text-decoration:none;font-size:.88rem;font-weight:600;cursor:pointer;
-     transition:transform .12s ease,box-shadow .12s ease,background .12s ease;white-space:nowrap}
-.btn:hover{transform:translateY(-1px);box-shadow:var(--ombra)}
-.btn.primario{background:var(--accento);border-color:var(--accento);color:#fff}
-.btn.primario:hover{background:var(--accento2)}
+body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--testo);background:var(--fondo);line-height:1.5}
+header{background:var(--blu);color:#fff;padding:28px 16px 22px}
+.contenuto{max-width:1040px;margin:0 auto;padding:0 16px}
+header .contenuto{padding:0}
+.sopratitolo{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+h1{font-size:1.55rem;margin:.25em 0 .2em}
+header p{margin:.2em 0;opacity:.9;font-size:.95rem}
+.azioni{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;border:1px solid var(--bordo);
+     background:var(--carta);color:var(--testo);text-decoration:none;font-size:.88rem;font-weight:600;cursor:pointer}
 header .btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:#fff}
-header .btn:hover{background:rgba(255,255,255,.2)}
-.btn svg{width:16px;height:16px;flex:none}
-.statistiche{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px}
-.stat{display:flex;flex-direction:column}
-.stat b{font-size:1.5rem;line-height:1.1;font-weight:700}
-.stat span{font-size:.78rem;opacity:.85;text-transform:uppercase;letter-spacing:.06em}
-
-/* ---------- barra di ricerca ---------- */
-.barra{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:22px 0 16px}
-.cerca{flex:1 1 260px;display:flex;align-items:center;gap:8px;background:var(--carta);border:1px solid var(--bordo);border-radius:10px;padding:8px 12px}
-.cerca input{flex:1;border:0;outline:0;background:transparent;color:var(--testo);font:inherit;font-size:.95rem;min-width:0}
-.cerca svg{width:18px;height:18px;color:var(--tenue);flex:none}
-.filtri{display:flex;gap:6px;flex-wrap:wrap}
-.chip{padding:6px 11px;border-radius:999px;border:1px solid var(--bordo);background:var(--carta);font-size:.8rem;font-weight:600;color:var(--tenue);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--blu);border-color:var(--blu);color:#fff}
-:root[data-theme="dark"] .chip[aria-pressed="true"]{background:var(--accento);border-color:var(--accento)}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .chip[aria-pressed="true"]{background:var(--accento);border-color:var(--accento)} }
-
-/* ---------- schede ---------- */
-main{padding:4px 0 40px}
-.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
-.scheda{background:var(--carta);border:1px solid var(--bordo);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--ombra);transition:transform .15s ease}
-.scheda:hover{transform:translateY(-2px)}
-.scheda .banda{height:6px;background:var(--colore,var(--accento))}
-.scheda .corpo{padding:16px 18px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
-.testa{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.modulo{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--colore,var(--accento))}
-.stato{font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:999px;background:color-mix(in srgb,var(--verde) 14%,transparent);color:var(--verde);white-space:nowrap}
-.stato.prep{background:color-mix(in srgb,var(--arancio) 16%,transparent);color:var(--arancio)}
-.scheda h2{margin:0;font-size:1.25rem;line-height:1.25;letter-spacing:-.01em}
-.scheda h2 a{color:inherit;text-decoration:none}
-.scheda h2 a:hover{text-decoration:underline;text-decoration-color:var(--colore)}
-.sottotitolo{margin:0;color:var(--tenue);font-size:.92rem}
-.numeri{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--tenue);border-top:1px dashed var(--bordo);border-bottom:1px dashed var(--bordo);padding:8px 0}
-.numeri b{color:var(--testo);font-weight:600}
-details{font-size:.88rem}
-details summary{cursor:pointer;color:var(--accento2);font-weight:600;list-style:none;display:flex;align-items:center;gap:6px;user-select:none}
-details summary::-webkit-details-marker{display:none}
-details summary::before{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s;margin-left:2px}
-details[open] summary::before{transform:rotate(45deg)}
-details ol{margin:8px 0 0;padding-left:1.3em;color:var(--tenue);display:grid;gap:2px}
-details ol li::marker{color:var(--colore);font-weight:600}
-.azioni{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
-.azioni .btn{flex:1 1 auto;justify-content:center}
-.tag{display:inline-flex;gap:6px;flex-wrap:wrap}
-.tag span{font-size:.72rem;padding:2px 8px;border-radius:6px;background:var(--fondo);border:1px solid var(--bordo);color:var(--tenue)}
-.scheda.prep{opacity:.82}
-.scheda.prep .corpo{background:repeating-linear-gradient(-45deg,transparent 0 10px,color-mix(in srgb,var(--bordo) 45%,transparent) 10px 11px)}
-.vuoto{display:none;text-align:center;color:var(--tenue);padding:30px}
-
-/* ---------- note a piè di pagina ---------- */
-.info{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.riquadro{background:var(--carta);border:1px solid var(--bordo);border-left:4px solid var(--accento);border-radius:10px;padding:13px 15px;font-size:.9rem}
-.riquadro h3{margin:0 0 .35em;font-size:.95rem}
-.riquadro p{margin:.25em 0}
-.riquadro.viola{border-left-color:var(--viola)}
-.riquadro.arancio{border-left-color:var(--arancio)}
-footer{color:var(--tenue);font-size:.8rem;text-align:center;padding:16px 16px 34px}
-footer a{color:inherit}
-@media (max-width:480px){
-  .griglia{grid-template-columns:1fr}
-  .statistiche{gap:14px}
-  .btn{padding:8px 11px}
-}
-@media print{header::after,.barra,.strumenti{display:none}.scheda{break-inside:avoid;box-shadow:none}}
+.btn.primario{background:var(--accento);border-color:var(--accento);color:#fff}
+.btn.piccolo{padding:3px 8px;font-size:.78rem;font-weight:500}
+main{padding:22px 0 40px}
+.nota{background:var(--carta);border:1px solid var(--bordo);border-left:4px solid var(--accento);border-radius:8px;
+      padding:12px 14px;font-size:.92rem;margin-bottom:18px}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.86em}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.scheda{background:var(--carta);border:1px solid var(--bordo);border-radius:10px;padding:14px 15px;display:flex;flex-direction:column;gap:6px}
+.scheda .testa{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.etichetta{font-size:.72rem;font-weight:700;color:var(--accento);text-transform:uppercase;letter-spacing:.05em}
+.cap{font-size:.75rem;color:var(--tenue)}
+.scheda h2{font-family:"JetBrains Mono",monospace;font-size:.95rem;margin:0;word-break:break-all}
+.scheda h3{font-size:1rem;margin:0}
+.scheda p{margin:0;font-size:.9rem;color:var(--tenue)}
+.dip{font-size:.8rem;color:var(--tenue)}
+.scheda .azioni{margin-top:auto;padding-top:6px}
+.scheda details{font-size:.82rem}
+.scheda summary{cursor:pointer;color:var(--accento);font-weight:600}
+.scheda ul.file{list-style:none;padding:0;margin:6px 0 0;display:flex;flex-direction:column;gap:3px;max-height:260px;overflow:auto}
+.scheda ul.file li{display:flex;justify-content:space-between;gap:6px;align-items:center}
+.scheda ul.file a.nome{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--testo);text-decoration:none;word-break:break-all}
+.scheda ul.file a.nome:hover{color:var(--accento)}
+#visore{display:none;background:var(--carta);border:1px solid var(--bordo);border-radius:10px;margin-bottom:22px;overflow:hidden}
+#visore .barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bordo)}
+#visore .barra strong{font-family:"JetBrains Mono",monospace;font-size:.95rem;word-break:break-all}
+#visore pre{margin:0;max-height:75vh;overflow:auto;font-size:.82rem}
+#visore pre code{font-family:"JetBrains Mono",monospace;padding:14px 16px;display:block}
+footer{color:var(--tenue);font-size:.8rem;text-align:center;padding:10px 16px 30px}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="contenuto">
-    <div class="riga-alto">
-      <div>
-        <div class="sopratitolo">Costruzioni aeronautiche &middot; Fluidodinamica numerica</div>
-        <h1>Monografie di fluidodinamica numerica</h1>
-        <p class="sotto">Un corso a moduli, dal linguaggio Python e dall'integrazione delle equazioni del moto fino alle equazioni di Navier&ndash;Stokes e a OpenFOAM: per ogni monografia il PDF, i programmi Python commentati, gli esercizi svolti e, per il Modulo 5, i casi OpenFOAM pronti da eseguire. I QR code nel margine dei PDF puntano ai file di questa pagina.</p>
-      </div>
-      <div class="strumenti">
-        <button class="btn" id="tema" type="button" title="Cambia tema">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-          <span>Tema</span>
-        </button>
-        <a class="btn" href="https://github.com/braucci/CFD" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.9 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>
-          <span>Repository</span>
-        </a>
-      </div>
-    </div>
-    <div class="statistiche" id="statistiche"></div>
+<header><div class="contenuto">
+  <div class="sopratitolo">Fluidodinamica numerica &middot; monografia5 &middot; casi OpenFOAM</div>
+  <h1>Il metodo dei volumi finiti e OpenFOAM</h1>
+  <p>I casi OpenFOAM 12 della monografia, pronti da eseguire: per ognuno i file di ingresso (<code>0/</code>, <code>constant/</code>, <code>system/</code>), lo script <code>Allrun</code> e, dove c'&egrave;, il <code>genera.py</code> che esegue le varianti. Prof. Ing. Biagio Raucci.</p>
+  <div class="azioni">
+    <a class="btn" href="../monografia5.pdf">Monografia (PDF)</a>
+    <a class="btn" href="../codici/index.html">Strumenti Python</a>
+    <a class="btn" href="monografia5_casi.zip" download>Scarica tutti i casi (.zip)</a>
   </div>
-</header>
-
+</div></header>
 <main class="contenuto">
-  <div class="barra">
-    <label class="cerca" for="q">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Cerca un argomento (es. Blasius, Runge&ndash;Kutta, pannelli, Crank&ndash;Nicolson)&hellip;" autocomplete="off">
-    </label>
-    <div class="filtri" id="filtri">
-      <button class="chip" type="button" data-filtro="tutti" aria-pressed="true">Tutte</button>
-      <button class="chip" type="button" data-filtro="pubblicata" aria-pressed="false">Pubblicate</button>
-      <button class="chip" type="button" data-filtro="prep" aria-pressed="false">In preparazione</button>
-    </div>
-  </div>
 
-  <section class="griglia" id="griglia" aria-live="polite"></section>
-  <p class="vuoto" id="vuoto">Nessuna monografia corrisponde alla ricerca.</p>
-
-  <section class="info">
-    <div class="riquadro">
-      <h3>Come usare i codici</h3>
-      <p>Ogni monografia ha una pagina <span class="mono">codici/</span> che elenca i programmi con le dipendenze, li mostra con l'evidenziazione della sintassi e permette di scaricarli uno per uno o in un unico archivio zip. Servono Python&nbsp;&ge;&nbsp;3.9 con <span class="mono">numpy</span>, <span class="mono">scipy</span>, <span class="mono">matplotlib</span> e <span class="mono">sympy</span>. Chi non ha mai programmato in Python parte dal Modulo&nbsp;0.</p>
+  <section id="visore" aria-live="polite">
+    <div class="barra">
+      <strong id="v-nome"></strong>
+      <span class="azioni" style="margin:0">
+        <button class="btn" id="v-copia" type="button">Copia</button>
+        <a class="btn" id="v-scarica" download>Scarica</a>
+        <button class="btn" id="v-chiudi" type="button">Chiudi</button>
+      </span>
     </div>
-    <div class="riquadro viola">
-      <h3>Struttura di ogni modulo</h3>
-      <p>Intuizione fisica &rarr; modello matematico &rarr; algoritmo e programma &rarr; risultati discussi criticamente. Ogni risultato numerico &egrave; confrontato con una soluzione esatta o di riferimento; gli esercizi sono svolti passo per passo.</p>
-    </div>
-    <div class="riquadro arancio">
-      <h3>Aggiornamenti</h3>
-      <p>Le monografie vengono pubblicate una alla volta. Per aggiungerne una basta inserire una voce nell'elenco <span class="mono">MONOGRAFIE</span> in fondo a questa pagina: titolo, capitoli e cartella.</p>
-    </div>
+    <pre><code id="v-codice"></code></pre>
   </section>
+
+  <div class="nota">
+    Ogni caso si esegue con <code>./Allrun</code> dalla sua cartella (serve OpenFOAM 12 della Foundation, con l'ambiente caricato:
+    <code>source /opt/openfoam12/etc/bashrc</code> o equivalente) e si ripulisce con <code>./Allclean</code>. I casi con <code>genera.py</code>
+    vanno lanciati con <code>python3 genera.py</code>, che esegue le varianti e scrive <code>risultati.json</code>: usano i moduli Python della pagina degli strumenti, che vanno estratti accanto ai casi (i due archivi completi si estraggono nella stessa cartella e danno <code>monografia5/casi/</code> e <code>monografia5/codici/</code>); gli script
+    <code>fig*.py</code> della pagina degli strumenti leggono poi questi risultati. Le cartelle dei tempi, i log e le mesh non sono inclusi:
+    si rigenerano eseguendo il caso. Il file <code>risultati.json</code>, dove presente, &egrave; quello dei calcoli riportati nel PDF.
+  </div>
+  <div class="griglia" id="griglia"></div>
 </main>
-
-<footer>
-  Prof. Ing. Biagio Raucci &middot; ITIS &laquo;E. Majorana&raquo; &middot; <a href="https://braucci.github.io/SCSI" target="_blank" rel="noopener">Archivio didattico SCSI</a>
-  &middot; <span id="aggiornato"></span>
-</footer>
-
+<footer>Indirizzo di questa pagina: <span class="mono">https://braucci.github.io/CFD/monografia5/casi/</span></footer>
 <script>
-/* =====================================================================
-   ELENCO DELLE MONOGRAFIE: per aggiungerne una basta una nuova voce.
-   cartella  -> sottocartella del repository (contiene <cartella>.pdf e codici/)
-   stato     -> "pubblicata" oppure "prep" (in preparazione: niente link)
-   ===================================================================== */
-const MONOGRAFIE = [
-  {
-    modulo: 0, cartella: "monografia0", stato: "pubblicata", colore: "#566573",
-    titolo: "Python per la fluidodinamica numerica",
-    sottotitolo: "Il linguaggio, NumPy, SciPy, Matplotlib e SymPy per leggere e scrivere i programmi del corso: il modulo propedeutico.",
-    pagine: 117, programmi: 9, esercizi: 20,
-    parole: "Python programmazione variabili float virgola mobile IEEE cicli funzioni lambda liste tuple dizionari NumPy array slicing viste broadcasting vettorializzazione Matplotlib figure contour streamplot SciPy brentq fsolve solve_ivp solve_bvp sparse SymPy simbolico lambdify eccezioni assert file json profilo ISA NACA letture guidate",
-    capitoli: [
-      "Primi passi: l'interprete, i numeri, le stringhe",
-      "Controllo del flusso e funzioni",
-      "Liste, tuple, dizionari e stringhe",
-      "NumPy: gli array e le differenze finite",
-      "Le figure con Matplotlib",
-      "La cassetta degli attrezzi di SciPy",
-      "Calcolo simbolico con SymPy",
-      "Anatomia di un programma del corso (tre letture guidate)",
-      "Errori, verifiche, file e tempi"
-    ]
-  },
-  {
-    modulo: 1, cartella: "monografia1", stato: "pubblicata", colore: "#DC7633",
-    titolo: "Problemi ai valori iniziali in fluidodinamica",
-    sottotitolo: "Integrazione nel tempo delle equazioni del moto: metodi di Runge–Kutta e applicazioni al volo.",
-    pagine: 111, programmi: 14, esercizi: 17,
-    parole: "Runge-Kutta Eulero ordine stabilita' caduta sfera pendolo ala molla balistica proiettile gittata aliante razzo scia vorticosa vortici",
-    capitoli: [
-      "Metodi numerici per i problemi ai valori iniziali",
-      "Caduta libera di una sfera",
-      "Moti vincolati: pendolo e ala su molla",
-      "Moti bidimensionali e balistica",
-      "Traiettoria di un aliante (e il razzo)",
-      "Avvolgimento della scia vorticosa"
-    ]
-  },
-  {
-    modulo: 2, cartella: "monografia2", stato: "pubblicata", colore: "#1E8449",
-    titolo: "Flussi non viscosi",
-    sottotitolo: "Flussi potenziali, equazioni ellittiche e iperboliche: dal metodo dei pannelli alla formazione dell'urto.",
-    pagine: 186, programmi: 23, esercizi: 17,
-    parole: "potenziale sorgenti doppiette von Karman sfera ellissoide trasformazione conforme Joukowski pannelli NACA Laplace Liebmann SOR sovrarilassamento onde leapfrog CFL Courant urto MacCormack Beam-Warming Burgers tubo elastico arteria",
-    capitoli: [
-      "Flussi potenziali incomprimibili",
-      "Problemi ai limiti per equazioni ordinarie",
-      "Il metodo inverso: sovrapposizione di flussi elementari",
-      "Corpi di rivoluzione: il metodo di von Kármán",
-      "Trasformazione conforme e profili alari",
-      "Classificazione delle PDE ed equazioni ellittiche",
-      "Contorni irregolari e condizioni di derivata",
-      "Onde di piccola ampiezza",
-      "Onde di ampiezza finita e formazione dell'urto",
-      "Convezione non lineare",
-      "Il flusso pulsante in un tubo elastico"
-    ]
-  },
-  {
-    modulo: 3, cartella: "monografia3", stato: "pubblicata", colore: "#0d9488",
-    titolo: "Flussi viscosi",
-    sottotitolo: "Dallo strato limite alla stabilità idrodinamica: equazioni paraboliche, flussi di Stokes e metodi spettrali.",
-    pagine: 219, programmi: 28, esercizi: 18,
-    parole: "Navier-Stokes viscosita' strato limite Blasius Falkner-Skan Prandtl termico recupero Nusselt condotti canale Poisson SOR torsione parabolico esplicito implicito Crank-Nicolson ADI Rayleigh Stokes cavita' biarmonica Moffatt lubrificazione Benard Orr-Sommerfeld Chebyshev Fourier spettrale FFT Burgers Womersley",
-    capitoli: [
-      "Le equazioni del moto dei fluidi viscosi",
-      "Lo strato limite laminare sulla lamina piana",
-      "Lo strato limite termico: il termometro a lamina piana",
-      "Correnti in condotti e canali a pelo libero",
-      "Equazioni paraboliche I: metodi espliciti",
-      "Equazioni paraboliche II: metodi impliciti",
-      "Flussi di Stokes ed equazione biarmonica",
-      "Stabilità idrodinamica I: la convezione di Rayleigh–Bénard",
-      "Stabilità idrodinamica II: metodi spettrali di Chebyshev",
-      "Metodi pseudo-spettrali di Fourier"
-    ]
-  },
-  {
-    modulo: 4, cartella: "monografia4", stato: "pubblicata", colore: "#6C3483",
-    titolo: "Soluzione numerica delle equazioni di Navier–Stokes",
-    sottotitolo: "Metodo di Galerkin, differenze upwind, convezione e rotazione, variabili primitive e formulazione vorticità–funzione di corrente.",
-    pagine: 152, programmi: 15, esercizi: 20,
-    parole: "Navier-Stokes Galerkin sfera Kawaguti Newton-Raphson Jeffery-Hamel upwind viscosita' artificiale Hirt perturbazione discreta Lax-Wendroff Benard Boussinesq Torrance Taylor Couette Ekman spin-up Adams-Bashforth Crank-Nicolson AB-CN Thomas LU Burgers Cole-Hopf variabili primitive MAC griglia sfalsata passi frazionari proiezione Neumann cavita' Ghia vento vorticita' funzione di corrente ADI Peaceman-Rachford Wachspress cilindro separazione scia resistenza Dennis-Chang Fornberg",
-    capitoli: [
-      "Il metodo di Galerkin: la sfera a numeri di Reynolds finiti",
-      "Differenze upwind e viscosità artificiale",
-      "Convezione di Bénard e instabilità dei fluidi in rotazione",
-      "Schemi del secondo ordine nel tempo e sistemi tridiagonali",
-      "Variabili primitive: griglia sfalsata e passi frazionari",
-      "Formulazione vorticità–funzione di corrente: cavità e cilindro"
-    ]
-  },
-  {
-    modulo: 5, cartella: "monografia5", stato: "pubblicata", colore: "#B9770E", casi: 17,
-    titolo: "Il metodo dei volumi finiti e OpenFOAM",
-    sottotitolo: "Dalla discretizzazione ai volumi finiti all'uso consapevole di OpenFOAM: mesh, schemi, solutori, accoppiamento pressione–velocità, turbolenza, comprimibile, casi aeronautici 2D e 3D; con strumenti Python di lettura e verifica.",
-    pagine: 185, programmi: 24, esercizi: 20,
-    parole: "OpenFOAM volumi finiti FVM Moukalled mesh blockMesh snappyHexMesh checkMesh non ortogonalita' skewness gradiente Green-Gauss least squares laplaciano correzione non ortogonale convezione upwind linearUpwind QUICK TVD limitatori vanLeer Minmod SuperBee MUSCL Euler backward Crank-Nicolson Courant sottorilassamento residui solutori lineari GAMG PCG PBiCGStab SIMPLE SIMPLEC PISO PIMPLE Rhie-Chow cavita' Ghia turbolenza RANS Spalart-Allmaras k-epsilon k-omega SST funzioni di parete y+ lastra piana gradino comprimibile shockFluid tubo d'urto Sod Riemann urto obliquo condizioni al contorno codedFixedValue solutore personalizzato wmake NACA 0012 polare GCI convergenza di griglia Richardson cilindro von Karman Strouhal semiala snappyHexMesh parallelo decomposePar linea portante verifica validazione ParaView foamcase",
-    capitoli: [
-      "Primi passi: installare, eseguire, leggere",
-      "Le equazioni di conservazione e il metodo dei volumi finiti",
-      "La mesh ai volumi finiti",
-      "Gradienti e termine diffusivo",
-      "Il termine convettivo e gli schemi ad alta risoluzione",
-      "Tempo, sorgenti, sottorilassamento e residui",
-      "La soluzione dei sistemi lineari",
-      "L'accoppiamento fra pressione e velocità",
-      "La turbolenza: modelli RANS e trattamento di parete",
-      "Flussi comprimibili",
-      "Le condizioni al contorno",
-      "Dentro il codice: leggere e scrivere OpenFOAM",
-      "Il profilo NACA 0012: polare e convergenza di griglia",
-      "Un transitorio: la scia di von Kármán",
-      "Un caso tridimensionale: la semiala con snappyHexMesh in parallelo",
-      "Verifica, validazione e buone pratiche: dal problema al caso"
-    ]
-  }
-];
-
-/* ---------- icone ---------- */
-const ICONE = {
-  pdf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h8"/></svg>',
-  codice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg>',
-  casi: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7M12 11v10"/></svg>',
-  zip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>'
-};
-
+const CASI = [{"nome": "c01_cavita", "capitolo": "Cap. 1", "titolo": "La cavità con coperchio mobile", "descr": "Il primo caso: cavità a Re = 10 con incompressibleFluid (PISO), blockMesh 20 x 20, function object per i profili; variante 80 x 80 generata dallo script.", "file": ["Allclean", "Allrun", "0/U", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c01_cavita.zip"}, {"nome": "c02_canale", "capitolo": "Cap. 3", "titolo": "Mesh del canale", "descr": "blockMeshDict di un canale con grading verso le pareti e #calc per i parametri; qualità con checkMesh.", "file": ["Allclean", "Allrun", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c02_canale.zip"}, {"nome": "c02_cilindro", "capitolo": "Cap. 3", "titolo": "Mesh a O intorno al cilindro", "descr": "blockMeshDict con bordi arc e quattro blocchi; non ortogonalità e skewness.", "file": ["Allclean", "Allrun", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c02_cilindro.zip"}, {"nome": "c02_tubo", "capitolo": "Cap. 3", "titolo": "Mesh del tubo (wedge e O-grid)", "descr": "Due blockMeshDict per un condotto circolare: lo spicchio assialsimmetrico (wedge) e la butterfly (O-grid) tridimensionale.", "file": ["Allclean", "Allrun", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c02_tubo.zip"}, {"nome": "c04_diffusione", "capitolo": "Cap. 4", "titolo": "Diffusione pura: gradienti e laplaciano", "descr": "laplacianFoam con soluzione manufatta su mesh quadrata, parallelogramma e perturbata; genera.py esegue tutte le combinazioni di schemi e risoluzioni.", "file": ["Allclean", "Allrun", "genera.py", "risultati.json", "0/T", "0/grad(T)", "constant/physicalProperties", "system/blockMeshDict", "system/blockMeshDict.template", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c04_diffusione.zip"}, {"nome": "c05_convezione", "capitolo": "Cap. 5", "titolo": "Convezione pura: gli schemi", "descr": "scalarTransport di un gradino obliquo in un campo di velocità uniforme; genera.py esegue i nove schemi convettivi e ne misura overshoot e diffusione.", "file": ["Allclean", "Allrun", "genera.py", "risultati.json", "0/U", "0/p", "0/s", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c05_convezione.zip"}, {"nome": "c06_tempo", "capitolo": "Cap. 6", "titolo": "Schemi temporali", "descr": "Due sottocasi (diffusione e convezione) per l'ordine di convergenza di Euler, backward e Crank-Nicolson e la risposta a Courant alto.", "file": ["Allclean", "Allrun", "genera.py", "risultati.json", "convezione/0/U", "convezione/0/p", "convezione/0/s", "convezione/constant/momentumTransport", "convezione/constant/physicalProperties", "convezione/system/blockMeshDict", "convezione/system/controlDict", "convezione/system/fvSchemes", "convezione/system/fvSolution", "diffusione/0/T", "diffusione/constant/physicalProperties", "diffusione/system/blockMeshDict", "diffusione/system/controlDict", "diffusione/system/fvSchemes", "diffusione/system/fvSolution"], "zip": "c06_tempo.zip"}, {"nome": "c08_cavita_re100", "capitolo": "Cap. 7-8", "titolo": "Cavità a Re = 100: SIMPLE, rilassamento, solutori", "descr": "incompressibleFluid stazionario (SIMPLE/SIMPLEC); genera.py esegue le varianti di rilassamento, i solutori lineari della pressione, gli schemi convettivi e PISO.", "file": ["Allclean", "Allrun", "genera.py", "risultati.json", "0/U", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution", "system/fvSolution.piso", "system/fvSolution.simple"], "zip": "c08_cavita_re100.zip"}, {"nome": "c09_lastra", "capitolo": "Cap. 9", "titolo": "Lastra piana laminare e turbolenta", "descr": "Strato limite su lastra piana: laminare contro Blasius; k-omega SST risolto a parete e con funzioni di parete; k-epsilon.", "file": ["Allclean", "Allrun", "genera.py", "risultati.json", "0/U", "0/epsilon", "0/k", "0/nuTilda", "0/nut", "0/omega", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/blockMeshDict.template", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c09_lastra.zip"}, {"nome": "c10_gradino", "capitolo": "Cap. 9", "titolo": "Gradino all'indietro", "descr": "Il caso di Driver & Seegmiller con Spalart-Allmaras, k-epsilon e k-omega SST: riattacco, C_f, profili.", "file": ["Allclean", "Allrun", "genera.py", "risultati.json", "0/U", "0/epsilon", "0/k", "0/nuTilda", "0/nut", "0/omega", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c10_gradino.zip"}, {"nome": "c11_tubo_urto", "capitolo": "Cap. 10", "titolo": "Tubo d'urto di Sod", "descr": "shockFluid (Kurganov-Tadmor) contro la soluzione esatta del problema di Riemann; ricostruzioni vanLeer, vanAlbada, Minmod.", "file": ["Allclean", "Allrun", "risultati.json", "0.orig/T", "0.orig/U", "0.orig/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution", "system/setFieldsDict"], "zip": "c11_tubo_urto.zip"}, {"nome": "c12_cuneo", "capitolo": "Cap. 10", "titolo": "Urto obliquo su cuneo", "descr": "shockFluid a Ma 2,5 su un cuneo di 15 gradi; MachNo come function object; confronto con la teoria dell'urto obliquo.", "file": ["Allclean", "Allrun", "risultati.json", "0/Ma", "0/T", "0/U", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c12_cuneo.zip"}, {"nome": "c13_poiseuille", "capitolo": "Cap. 11", "titolo": "Condizioni al contorno: il tubo di Poiseuille", "descr": "Condotto assialsimmetrico con profilo d'ingresso codificato (codedFixedValue), uscita a pressione imposta, confronto con Hagen-Poiseuille.", "file": ["Allclean", "Allrun", "risultati.json", "0/U", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c13_poiseuille.zip"}, {"nome": "c14_codice", "capitolo": "Cap. 12", "titolo": "Dentro il codice: un solutore e una condizione al contorno", "descr": "Il solutore trasportoFoam e la condizione al contorno compilata profiloParabolico (libreria), con i due casi di prova e lo script Allrun che compila con wmake.", "file": ["Allclean", "Allrun", "risultati.json", "casoProfilo/0/U", "casoProfilo/0/p", "casoProfilo/constant/momentumTransport", "casoProfilo/constant/physicalProperties", "casoProfilo/system/blockMeshDict", "casoProfilo/system/controlDict", "casoProfilo/system/fvSchemes", "casoProfilo/system/fvSolution", "casoTrasporto/0/T", "casoTrasporto/0/U", "casoTrasporto/constant/physicalProperties", "casoTrasporto/system/blockMeshDict", "casoTrasporto/system/controlDict", "casoTrasporto/system/fvSchemes", "casoTrasporto/system/fvSolution", "profiloParabolico/profiloParabolicoFvPatchVectorField.C", "profiloParabolico/profiloParabolicoFvPatchVectorField.H", "profiloParabolico/Make/files", "profiloParabolico/Make/options", "trasportoFoam/createFields.H", "trasportoFoam/trasportoFoam.C", "trasportoFoam/Make/files", "trasportoFoam/Make/options"], "zip": "c14_codice.zip"}, {"nome": "c15_naca0012", "capitolo": "Cap. 13", "titolo": "Il profilo NACA 0012", "descr": "Mesh a C generata da nacamesh.py, Spalart-Allmaras a Re = 6 milioni, polare da 0 a 15 gradi, convergenza di griglia su tre mesh (GCI); genera.py esegue tutto.", "file": ["Allclean", "Allrun", "gci.json", "genera.py", "risultati.json", "0.orig/U", "0.orig/nuTilda", "0.orig/nut", "0.orig/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/forzeDict", "system/fvSchemes", "system/fvSolution"], "zip": "c15_naca0012.zip"}, {"nome": "c16_cilindro", "capitolo": "Cap. 14", "titolo": "La scia di von Kármán", "descr": "Cilindro a Re = 200 in transitorio (PISO), mesh a O, forceCoeffs e sonde; numero di Strouhal dallo spettro.", "file": ["Allclean", "Allrun", "risultati.json", "0/U", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/fvSchemes", "system/fvSolution"], "zip": "c16_cilindro.zip"}, {"nome": "c17_ala", "capitolo": "Cap. 15", "titolo": "La semiala tridimensionale", "descr": "Semiala NACA 0012 (AR = 4) a 5 gradi: superficie STL da wingstl.py, snappyHexMesh con strati, decomposizione e calcolo in parallelo, forceCoeffs e yPlus.", "file": ["Allclean", "Allrun", "0/U", "0/nuTilda", "0/nut", "0/p", "constant/momentumTransport", "constant/physicalProperties", "system/blockMeshDict", "system/controlDict", "system/decomposeParDict", "system/fvSchemes", "system/fvSolution", "system/meshQualityDict", "system/snappyHexMeshDict", "system/surfaceFeaturesDict"], "zip": "c17_ala.zip"}, {"nome": "letture", "capitolo": "Cap. 2 e 8", "titolo": "Sorgenti di OpenFOAM letti nel testo", "descr": "icoFoam.C e createFields.H (il solutore più semplice), momentumPredictor.C e correctPressure.C del modulo incompressibleFluid.", "file": ["correctPressure.C", "createFields.H", "icoFoam.C", "momentumPredictor.C"], "zip": null}];
 const griglia = document.getElementById("griglia");
-const vuoto = document.getElementById("vuoto");
-const q = document.getElementById("q");
-let filtro = "tutti";
-
-function normalizza(s){ return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,""); }
-
-function scheda(m){
-  const prep = m.stato === "prep";
-  const base = m.cartella;
-  const cap = m.capitoli.length
-    ? `<details><summary>${m.capitoli.length} capitoli</summary><ol>${m.capitoli.map(c=>`<li>${c}</li>`).join("")}</ol></details>`
-    : `<p class="sottotitolo"><em>Indice in definizione.</em></p>`;
-  const numeri = prep ? "" : `<div class="numeri">
-      <span><b>${m.pagine}</b> pagine</span><span><b>${m.programmi}</b> programmi Python</span>${m.casi ? `<span><b>${m.casi}</b> casi OpenFOAM</span>` : ""}<span><b>${m.esercizi}</b> esercizi svolti</span></div>`;
-  const azioni = prep ? `<div class="azioni"><span class="btn" aria-disabled="true" style="opacity:.55;cursor:default">${ICONE.pdf}<span>In preparazione</span></span></div>`
-    : `<div class="azioni">
-        <a class="btn primario" href="${base}/${base}.pdf">${ICONE.pdf}<span>PDF</span></a>
-        <a class="btn" href="${base}/codici/index.html">${ICONE.codice}<span>Codici</span></a>
-        ${m.casi ? `<a class="btn" href="${base}/casi/index.html">${ICONE.casi}<span>Casi OpenFOAM</span></a>` : ""}
-        <a class="btn" href="${base}/codici/${base}_codici.zip" download>${ICONE.zip}<span>Archivio zip</span></a>
-      </div>`;
-  const titolo = prep ? m.titolo : `<a href="${base}/codici/index.html">${m.titolo}</a>`;
-  return `<article class="scheda ${prep?"prep":""}" style="--colore:${m.colore}" data-stato="${m.stato}"
-            data-testo="${normalizza([m.titolo,m.sottotitolo,m.parole,...m.capitoli].join(" "))}">
-    <div class="banda"></div>
-    <div class="corpo">
-      <div class="testa"><span class="modulo">Modulo ${m.modulo}</span>
-        <span class="stato ${prep?"prep":""}">${prep?"in preparazione":"pubblicata"}</span></div>
-      <h2>${titolo}</h2>
-      <p class="sottotitolo">${m.sottotitolo}</p>
-      ${numeri}
-      ${cap}
-      ${azioni}
-    </div></article>`;
-}
-
-function disegna(){
-  griglia.innerHTML = MONOGRAFIE.map(scheda).join("");
-  const pub = MONOGRAFIE.filter(m=>m.stato!=="prep");
-  const somma = k => pub.reduce((s,m)=>s+(m[k]||0),0);
-  document.getElementById("statistiche").innerHTML =
-    `<div class="stat"><b>${pub.length}</b><span>monografie</span></div>
-     <div class="stat"><b>${somma("pagine")}</b><span>pagine</span></div>
-     <div class="stat"><b>${somma("programmi")}</b><span>programmi Python</span></div>
-     <div class="stat"><b>${somma("esercizi")}</b><span>esercizi svolti</span></div>`;
-  filtra();
-}
-
-function filtra(){
-  const testo = normalizza(q.value.trim());
-  let visibili = 0;
-  for (const el of griglia.children){
-    const okStato = filtro==="tutti" || (filtro==="prep" ? el.dataset.stato==="prep" : el.dataset.stato!=="prep");
-    const okTesto = !testo || testo.split(/\s+/).every(t=>el.dataset.testo.includes(t));
-    const mostra = okStato && okTesto;
-    el.style.display = mostra ? "" : "none";
-    if (mostra){ visibili++; if (testo && el.querySelector("details")) el.querySelector("details").open = true; }
+for (const c of CASI) {
+  const s = document.createElement("article");
+  s.className = "scheda";
+  s.innerHTML = `
+    <div class="testa"><span class="etichetta"></span><span class="cap"></span></div>
+    <h2></h2><h3></h3><p></p>
+    <details><summary></summary><ul class="file"></ul></details>
+    <div class="azioni">
+      <a class="btn primario" download>Scarica il caso (.zip)</a>
+    </div>`;
+  s.querySelector(".etichetta").textContent = c.zip ? "caso" : "letture";
+  s.querySelector(".cap").textContent = c.capitolo + " · " + c.file.length + " file";
+  s.querySelector("h2").textContent = c.nome;
+  s.querySelector("h3").textContent = c.titolo;
+  s.querySelector("p").textContent = c.descr;
+  s.querySelector("summary").textContent = "File del caso";
+  const ul = s.querySelector("ul.file");
+  for (const f of c.file) {
+    const li = document.createElement("li");
+    const a = document.createElement("a"); a.className = "nome"; a.href = "#"; a.textContent = f;
+    a.addEventListener("click", (ev) => { ev.preventDefault(); apri(c.nome + "/" + f, true); });
+    const d = document.createElement("a"); d.className = "btn piccolo"; d.textContent = "scarica"; d.href = c.nome + "/" + f; d.download = "";
+    li.appendChild(a); li.appendChild(d); ul.appendChild(li);
   }
-  vuoto.style.display = visibili ? "none" : "block";
+  const z = s.querySelector(".azioni a");
+  if (c.zip) z.href = c.zip; else z.remove();
+  griglia.appendChild(s);
 }
 
-q.addEventListener("input", filtra);
-document.getElementById("filtri").addEventListener("click", e=>{
-  const b = e.target.closest(".chip"); if(!b) return;
-  filtro = b.dataset.filtro;
-  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", c===b));
-  filtra();
+const visore = document.getElementById("visore"), vCodice = document.getElementById("v-codice");
+function linguaggio(nome) {
+  if (nome.endsWith(".py")) return "python";
+  if (/(^|\/)(Allrun|Allclean|.*\.sh)$/.test(nome)) return "bash";
+  return "cpp";
+}
+async function apri(nome, scorri) {
+  visore.style.display = "block";
+  document.getElementById("v-nome").textContent = nome;
+  document.getElementById("v-scarica").href = nome;
+  vCodice.textContent = "Caricamento…";
+  vCodice.className = "language-" + linguaggio(nome);
+  try {
+    const r = await fetch(nome, {cache: "no-cache"});
+    if (!r.ok) throw new Error(r.status);
+    vCodice.textContent = await r.text();
+    if (window.hljs) { vCodice.removeAttribute("data-highlighted"); hljs.highlightElement(vCodice); }
+  } catch (e) {
+    vCodice.textContent = "Impossibile caricare " + nome + " (" + e.message + ").";
+  }
+  try { history.replaceState(null, "", "?f=" + encodeURIComponent(nome)); } catch (e) {}
+  if (scorri) visore.scrollIntoView({behavior: "smooth"});
+}
+document.getElementById("v-chiudi").addEventListener("click", () => {
+  visore.style.display = "none";
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+});
+document.getElementById("v-copia").addEventListener("click", async (ev) => {
+  try { await navigator.clipboard.writeText(vCodice.textContent); ev.target.textContent = "Copiato"; }
+  catch (e) { ev.target.textContent = "Copia non riuscita"; }
+  setTimeout(() => ev.target.textContent = "Copia", 1500);
 });
 
-/* tema chiaro/scuro: segue il sistema, con scelta memorizzata (se possibile) */
-const root = document.documentElement;
-try { const t = localStorage.getItem("tema"); if (t) root.dataset.theme = t; } catch(e){}
-document.getElementById("tema").addEventListener("click", ()=>{
-  const scuro = root.dataset.theme ? root.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-  root.dataset.theme = scuro ? "light" : "dark";
-  try { localStorage.setItem("tema", root.dataset.theme); } catch(e){}
-});
-
-/* parametro ?q= per condividere una ricerca */
-const par = new URLSearchParams(location.search).get("q"); if (par){ q.value = par; }
-document.getElementById("aggiornato").textContent = "Ultimo aggiornamento: ottobre 2026";
-disegna();
+const richiesto = new URLSearchParams(location.search).get("f");
+if (richiesto) apri(richiesto, false);
 </script>
 </body>
 </html>

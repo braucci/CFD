@@ -1,0 +1,14 @@
+#!/bin/bash
+# Caso c17_ala: semiala NACA 0012 (AR = 4) a 5 gradi con snappyHexMesh, in parallelo su 2 processori
+cd "${0%/*}" || exit 1
+STRUMENTI=../../codice; [ -d $STRUMENTI ] || STRUMENTI=../../codici        # codici/ nell'archivio pubblicato
+python3 $STRUMENTI/wingstl.py constant/geometry/ala.stl 0012 2.0 120 > log.wingstl 2>&1
+surfaceFeatures  > log.surfaceFeatures 2>&1     # spigoli vivi (TE, tip) -> constant/geometry/ala.eMesh
+blockMesh        > log.blockMesh 2>&1           # mesh di fondo
+decomposePar -copyZero > log.decomposePar 2>&1  # partizione della mesh di fondo in 2
+mpirun -np 2 snappyHexMesh -overwrite -parallel > log.snappyHexMesh 2>&1   # castellamento, snap, strati
+mpirun -np 2 checkMesh -parallel > log.checkMesh 2>&1
+mpirun -np 2 potentialFoam -parallel > log.potentialFoam 2>&1             # campo iniziale solenoidale
+mpirun -np 2 foamRun -parallel > log.foamRun 2>&1
+reconstructPar -latestTime > log.reconstructPar 2>&1                      # ricompone mesh e campi per il post-processing
+tail -n 3 log.foamRun

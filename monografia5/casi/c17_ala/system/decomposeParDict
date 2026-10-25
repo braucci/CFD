@@ -1,0 +1,10 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      decomposeParDict;
+}
+numberOfSubdomains  2;
+decomposer          scotch;        // partizione a grafo: bilancia celle e minimizza le facce fra i processori
+distributor         ptscotch;

@@ -1,0 +1,33 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// Mesh di fondo per snappyHexMesh: scatola -6..12 x -6..6 x 0..6 (corde), celle cubiche di 0,5 c (livello 0).
+// Il piano z = 0 e' il piano di simmetria (semiala): l'ala sta in 0 < z < 2.
+convertToMeters 1;
+
+vertices
+(
+    (-6 -6 0) (12 -6 0) (12 6 0) (-6 6 0)
+    (-6 -6 6) (12 -6 6) (12 6 6) (-6 6 6)
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (36 24 12) simpleGrading (1 1 1)
+);
+
+edges ();
+
+boundary
+(
+    ingresso  { type patch;         faces ((0 4 7 3)); }
+    uscita    { type patch;         faces ((1 2 6 5)); }
+    lati      { type patch;         faces ((0 1 5 4) (3 7 6 2) (4 5 6 7)); }   // sotto, sopra, lato esterno: corrente libera
+    simmetria { type symmetryPlane; faces ((0 3 2 1)); }                      // z = 0: il piano di mezzeria dell'ala
+);
+
+mergePatchPairs ();

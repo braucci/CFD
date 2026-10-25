@@ -1,0 +1,18 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      nut;
+}
+dimensions      [0 2 -1 0 0 0 0];
+internalField   uniform 0;
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"      // tipi dei patch vincolati (processor, symmetryPlane...) in parallelo
+    ingresso    { type calculated;     value uniform 0; }
+    uscita      { type calculated;     value uniform 0; }
+    lati        { type calculated;     value uniform 0; }
+    simmetria   { type symmetryPlane; }
+    ala         { type nutUSpaldingWallFunction; value uniform 0; }   // y+ ~ 30-100 con gli strati di snappy
+}

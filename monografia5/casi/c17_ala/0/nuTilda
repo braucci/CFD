@@ -1,0 +1,19 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      nuTilda;
+}
+// Re_c = U c / nu = 1e6: nu = 1e-6; nuTilda asintotica = 3 nu
+dimensions      [0 2 -1 0 0 0 0];
+internalField   uniform 3e-6;
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"      // tipi dei patch vincolati (processor, symmetryPlane...) in parallelo
+    ingresso    { type fixedValue;     value $internalField; }
+    uscita      { type inletOutlet;    inletValue $internalField; value $internalField; }
+    lati        { type freestream;     freestreamValue $internalField; }
+    simmetria   { type symmetryPlane; }
+    ala         { type fixedValue;     value uniform 0; }
+}

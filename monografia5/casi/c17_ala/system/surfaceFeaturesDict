@@ -1,0 +1,11 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      surfaceFeaturesDict;
+}
+// estrae gli spigoli vivi della superficie (angolo fra triangoli adiacenti > 180 - includedAngle): bordo d'uscita e tip
+surfaces        ("ala.stl");
+includedAngle   150;
+subsetFeatures  { nonManifoldEdges no; openEdges yes; }
