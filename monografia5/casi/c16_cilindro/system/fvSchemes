@@ -1,0 +1,18 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+ddtSchemes      { default backward; }                 // secondo ordine nel tempo
+gradSchemes     { default Gauss linear; }
+divSchemes
+{
+    default         none;
+    div(phi,U)      Gauss linearUpwind grad(U);       // nei transitori senza 'bounded'
+    div((nuEff*dev2(T(grad(U))))) Gauss linear;
+}
+laplacianSchemes     { default Gauss linear corrected; }
+interpolationSchemes { default linear; }
+snGradSchemes        { default corrected; }

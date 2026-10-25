@@ -1,0 +1,8 @@
+#!/bin/bash
+# Caso c11_tubo_urto: tubo d'urto di Sod con shockFluid; confronto con la soluzione esatta (fig11)
+cd "${0%/*}" || exit 1
+rm -rf 0 && cp -r 0.orig 0            # setFields sovrascrive 0/: si riparte sempre dai campi uniformi di 0.orig
+blockMesh  > log.blockMesh 2>&1
+setFields  > log.setFields 2>&1      # i due stati iniziali (alta e bassa pressione) da setFieldsDict
+foamRun    > log.foamRun 2>&1
+tail -n 3 log.foamRun

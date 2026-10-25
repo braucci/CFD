@@ -1,0 +1,6 @@
+#!/bin/bash
+# Caso c12_cuneo: urto obliquo su un cuneo di 15 gradi a Mach 2,5 (shockFluid, Kurganov-Tadmor)
+cd "${0%/*}" || exit 1
+blockMesh > log.blockMesh 2>&1
+foamRun   > log.foamRun 2>&1
+tail -n 3 log.foamRun

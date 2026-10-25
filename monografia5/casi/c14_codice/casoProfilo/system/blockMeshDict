@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso c13_poiseuille (mesh del caso c02_tubo): condotto circolare assialsimmetrico con un solo
+  blocco a cuneo ('wedge'): asse x, raggio R = 1 cm, lunghezza L = 20 cm, angolo 4 gradi.
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.01;
+
+L   20;
+R   1;
+// semiangolo del cuneo: 2 gradi -> y = R cos(2), z = +-R sin(2)
+Ry  0.99939;
+Rz  0.034899;
+
+vertices
+(
+    (0  0 0)                            // 0  asse, ingresso
+    ($L 0 0)                            // 1  asse, uscita
+    ($L #calc "$R*$Ry" #calc "-$R*$Rz") // 2
+    (0  #calc "$R*$Ry" #calc "-$R*$Rz") // 3
+    ($L #calc "$R*$Ry" #calc "$R*$Rz")  // 4
+    (0  #calc "$R*$Ry" #calc "$R*$Rz")  // 5
+);
+
+blocks
+(
+    // prisma a base triangolare: i vertici sull'asse sono ripetuti (hex degenere)
+    hex (0 1 2 3 0 1 4 5) (100 20 1) simpleGrading (1 0.2 1)   // celle piu' fitte verso la parete
+);
+
+edges
+(
+    arc 2 4 ($L $R 0)
+    arc 3 5 (0 $R 0)
+);
+
+boundary
+(
+    ingresso { type patch; faces ((0 3 5 0)); }
+    uscita   { type patch; faces ((1 2 4 1)); }
+    parete   { type wall;  faces ((2 3 5 4)); }
+    fronte   { type wedge; faces ((0 1 2 3)); }
+    retro    { type wedge; faces ((0 5 4 1)); }
+    asse     { type empty; faces ((0 1 1 0)); }
+);
+
+// ************************************************************************* //

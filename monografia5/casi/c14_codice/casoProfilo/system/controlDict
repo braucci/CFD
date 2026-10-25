@@ -1,0 +1,23 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+application     foamRun;
+
+libs            ("libprofiloParabolico.so");   // la condizione al contorno scritta nel Cap. 12
+solver          incompressibleFluid;
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+endTime         1500;         // residualControl non scatta (vedi testo: il residuo di Uz, nulla, resta alto)
+deltaT          1;
+writeControl    timeStep;
+writeInterval   1500;
+writeFormat     ascii;
+writePrecision  8;
+timeFormat      general;
+timePrecision   6;
+runTimeModifiable true;

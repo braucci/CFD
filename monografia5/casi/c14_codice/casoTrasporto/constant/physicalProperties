@@ -1,0 +1,12 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      physicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+DT              0 [m^2/s];     // diffusivita' nulla: convezione pura, come scalarTransport con diffusivity=none
+
+// ************************************************************************* //

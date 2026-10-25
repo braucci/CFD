@@ -1,0 +1,20 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// velocita' uniforme obliqua a 45 gradi, |U| = sqrt(2): entra da sinistra e dal basso
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (1 1 0);
+
+boundaryField
+{
+    sinistra    { type fixedValue;   value uniform (1 1 0); }
+    sotto       { type fixedValue;   value uniform (1 1 0); }
+    destra      { type zeroGradient; }
+    sopra       { type zeroGradient; }
+    frontEretro { type empty; }
+}

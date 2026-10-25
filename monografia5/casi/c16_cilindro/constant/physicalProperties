@@ -1,0 +1,10 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      physicalProperties;
+}
+viscosityModel  constant;
+nu              0.01 [m^2/s];        // U = 1, D = 1: Re = 100 (scia di von Karman laminare); 0.025 per Re = 40

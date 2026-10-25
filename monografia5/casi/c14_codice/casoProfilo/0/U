@@ -1,0 +1,31 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// Condotto: all'ingresso il profilo parabolico di Poiseuille u = 2 U_m (1 - r^2/R^2) imposto dalla classe
+// profiloParabolico (libreria compilata con wmake dal sorgente in ../profiloParabolico, caricata con 'libs').
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0.1 0 0);
+
+boundaryField
+{
+    ingresso
+    {
+        type            profiloParabolico;      // la classe compilata in libprofiloParabolico.so
+        Um              0.1;                    // velocita' media [m/s]
+        R               0.01;                   // raggio [m]
+        centro          (0 0 0);                // un punto dell'asse (facoltativo, default origine)
+        direzione       (1 0 0);                // direzione dell'asse e del moto (facoltativo)
+        fattore         halfCosineRamp;         // Function1 facoltativa: rampa dolce da 0 a 1 in 'duration'
+        fattoreCoeffs   { start 0; duration 50; }
+    }
+    uscita      { type zeroGradient; }
+    parete      { type noSlip; }
+    fronte      { type wedge; }
+    retro       { type wedge; }
+    asse        { type empty; }
+}

@@ -1,0 +1,39 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// Condotto: all'ingresso il profilo parabolico di Poiseuille u = 2 U_m (1 - r^2/R^2), scritto in C++
+// direttamente nel dizionario (codedFixedValue): e' compilato al primo avvio e caricato come libreria.
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0.1 0 0);
+
+boundaryField
+{
+    ingresso
+    {
+        type            codedFixedValue;
+        name            profiloParabolico;          // nome della libreria generata (dynamicCode/profiloParabolico)
+        code
+        #{
+            const scalar Um = 0.1, R = 0.01;         // velocita' media e raggio
+            const vectorField& Cf = patch().Cf();    // centri delle facce del patch
+            vectorField Uf(Cf.size(), vector::zero);
+            forAll(Cf, i)
+            {
+                const scalar r = sqrt(sqr(Cf[i].y()) + sqr(Cf[i].z()));
+                Uf[i] = vector(2*Um*(1 - sqr(r/R)), 0, 0);
+            }
+            operator==(Uf);                          // assegna il valore al patch
+        #};
+        value           uniform (0.1 0 0);           // valore iniziale, prima della compilazione
+    }
+    uscita      { type zeroGradient; }
+    parete      { type noSlip; }
+    fronte      { type wedge; }
+    retro       { type wedge; }
+    asse        { type empty; }
+}

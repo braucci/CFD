@@ -1,0 +1,54 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+application     foamRun;
+solver          incompressibleFluid;
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+endTime         150;                // in unita' D/U: circa 20 periodi di distacco dopo il transitorio
+deltaT          0.005;              // Co massimo ~ 1 vicino al cilindro
+writeControl    runTime;
+writeInterval   10;
+purgeWrite      3;                  // si conservano solo gli ultimi tre istanti
+writeFormat     ascii;
+writePrecision  8;
+timeFormat      general;
+timePrecision   6;
+runTimeModifiable true;
+
+functions
+{
+    coefficienti
+    {
+        type            forceCoeffs;
+        libs            ("libforces.so");
+        writeControl    timeStep;
+        writeInterval   1;
+        log             no;
+        patches         (cilindro);
+        rho             rhoInf;
+        rhoInf          1;
+        liftDir         (0 1 0);
+        dragDir         (1 0 0);
+        CofR            (0 0 0);
+        pitchAxis       (0 0 1);
+        magUInf         1;
+        lRef            1;          // diametro
+        Aref            1;          // diametro x spessore (la mesh e' spessa 1)
+    }
+    sonda
+    {
+        type            probes;
+        libs            ("libsampling.so");
+        writeControl    timeStep;
+        writeInterval   1;
+        fields          (U p);
+        probeLocations  ((3 0.5 0.5) (6 0.5 0.5));     // nella scia, fuori asse (la componente v oscilla)
+    }
+    #includeFunc vorticity          // il campo della vorticita' agli istanti di scrittura
+}

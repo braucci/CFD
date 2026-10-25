@@ -1,0 +1,6 @@
+#!/bin/bash
+# Caso c13_poiseuille: condotto assialsimmetrico con profilo d'ingresso scritto in C++ nel dizionario (codedFixedValue)
+cd "${0%/*}" || exit 1
+blockMesh > log.blockMesh 2>&1
+foamRun   > log.foamRun 2>&1          # la prima esecuzione compila la condizione al contorno (dynamicCode/)
+grep "SIMPLE solution converged" log.foamRun || tail -n 2 log.foamRun

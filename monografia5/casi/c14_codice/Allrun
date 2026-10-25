@@ -1,0 +1,16 @@
+#!/bin/bash
+# Caso c14_codice: compila la condizione al contorno profiloParabolico e il solutore trasportoFoam con wmake,
+# poi esegue i due casi di prova. Richiede l'ambiente OpenFOAM caricato (source .../etc/bashrc).
+cd "${0%/*}" || exit 1
+
+echo "1) compilazione della libreria libprofiloParabolico.so (in \$FOAM_USER_LIBBIN)"
+(cd profiloParabolico && wmake libso) > log.wmake_profiloParabolico 2>&1 || { echo "   errore: vedi log.wmake_profiloParabolico"; exit 1; }
+
+echo "2) compilazione del solutore trasportoFoam (in \$FOAM_USER_APPBIN)"
+(cd trasportoFoam && wmake) > log.wmake_trasportoFoam 2>&1 || { echo "   errore: vedi log.wmake_trasportoFoam"; exit 1; }
+
+echo "3) caso di prova del solutore: gradino obliquo (confronto con scalarTransport, caso c05)"
+(cd casoTrasporto && blockMesh > log.blockMesh 2>&1 && trasportoFoam > log.trasportoFoam 2>&1 && tail -n 2 log.trasportoFoam)
+
+echo "4) caso di prova della condizione al contorno: condotto di Poiseuille (confronto con codedFixedValue, caso c13)"
+(cd casoProfilo && blockMesh > log.blockMesh 2>&1 && foamRun > log.foamRun 2>&1 && (grep "SIMPLE solution converged" log.foamRun || tail -n 2 log.foamRun))

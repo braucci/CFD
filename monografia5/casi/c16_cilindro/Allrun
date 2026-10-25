@@ -1,0 +1,7 @@
+#!/bin/bash
+# Caso c16_cilindro: scia di von Karman a Re = 100 (transitorio PISO, backward) e caso stazionario a Re = 40
+cd "${0%/*}" || exit 1
+blockMesh > log.blockMesh 2>&1
+checkMesh > log.checkMesh 2>&1
+foamRun   > log.foamRun 2>&1          # circa 20-30 minuti su due processori
+tail -n 2 log.foamRun

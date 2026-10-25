@@ -1,0 +1,10 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      physicalProperties;
+}
+viscosityModel  constant;
+nu              1.6667e-07 [m^2/s];   // U = 1, c = 1: Re = 6e6 (i dati di Ladson e del NASA TMR)

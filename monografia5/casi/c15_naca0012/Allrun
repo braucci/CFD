@@ -1,0 +1,5 @@
+#!/bin/bash
+# Caso c15_naca0012: polare e studio di convergenza di griglia (circa un'ora su due processori)
+cd "${0%/*}" || exit 1
+python3 genera.py tutto > log.genera 2>&1
+tail -n 12 log.genera
