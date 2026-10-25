@@ -1,0 +1,82 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso c02_canale -- blockMesh: due blocchi, infittimento verso le pareti e
+  verso il gradino; mesh 2D (direzione z 'empty').
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.01;          // le coordinate sotto sono in centimetri
+
+// canale alto H = 2 (y da -1 a 1) lungo 10; un gradino abbassa il fondo a y = -1.5 per x > 4
+vertices
+(
+    (0  -1  0)   // 0
+    (4  -1  0)   // 1
+    (10 -1  0)   // 2
+    (0   1  0)   // 3
+    (4   1  0)   // 4
+    (10  1  0)   // 5
+    (4  -1.5 0)  // 6
+    (10 -1.5 0)  // 7
+
+    (0  -1  1)   // 8   stessi punti, spostati di 1 in z
+    (4  -1  1)   // 9
+    (10 -1  1)   // 10
+    (0   1  1)   // 11
+    (4   1  1)   // 12
+    (10  1  1)   // 13
+    (4  -1.5 1)  // 14
+    (10 -1.5 1)  // 15
+);
+
+blocks
+(
+    // blocco a monte: 40 x 30 celle; in y infittimento verso ENTRAMBE le pareti
+    // (multi-grading: due meta', ciascuna con il 50% delle celle, rapporti 0.25 e 4)
+    hex (0 1 4 3 8 9 12 11) (40 30 1)
+        simpleGrading (1 ((0.5 0.5 0.25) (0.5 0.5 4)) 1)
+    // blocco a valle, parte alta: 60 x 30; in x celle che si allargano verso l'uscita
+    hex (1 2 5 4 9 10 13 12) (60 30 1)
+        simpleGrading (3 ((0.5 0.5 0.25) (0.5 0.5 4)) 1)
+    // blocco a valle, sotto il gradino: 60 x 12
+    hex (6 7 2 1 14 15 10 9) (60 12 1)
+        simpleGrading (3 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    ingresso  { type patch; faces ((0 8 11 3)); }
+    uscita    { type patch; faces ((2 5 13 10) (7 2 10 15)); }
+    pareti
+    {
+        type wall;
+        faces
+        (
+            (3 11 12 4) (4 12 13 5)       // parete superiore
+            (0 1 9 8)                      // fondo a monte
+            (1 6 14 9)                     // faccia verticale del gradino
+            (6 7 15 14)                    // fondo a valle
+        );
+    }
+    frontEretro
+    {
+        type empty;
+        faces ((0 3 4 1) (1 4 5 2) (6 1 2 7) (8 9 12 11) (9 10 13 12) (14 15 10 9));
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

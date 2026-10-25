@@ -1,0 +1,87 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso c02_cilindro -- blockMesh: griglia a O intorno a un cilindro di
+  diametro D = 1 con bordi ad arco ('arc'), infittimento radiale verso la parete.
+  La stessa mesh, con raggio esterno maggiore, serve al Cap. 14 per la scia.
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1;
+
+R   0.5;        // raggio del cilindro
+Ro  10;         // raggio del contorno esterno (20 D)
+c   0.70710678; // cos(45 gradi)
+
+nR  40;         // celle in direzione radiale (per blocco)
+nT  30;         // celle in direzione azimutale (per blocco: 4 blocchi = 120 celle sul cilindro)
+gR  60;         // rapporto di espansione radiale (ultima cella / prima cella)
+
+vertices
+(
+    // sul cilindro, a 45, 135, 225, 315 gradi (z = 0)
+    ( #calc "$R*$c"   #calc "$R*$c"  0)   // 0
+    ( #calc "-$R*$c"  #calc "$R*$c"  0)   // 1
+    ( #calc "-$R*$c"  #calc "-$R*$c" 0)   // 2
+    ( #calc "$R*$c"   #calc "-$R*$c" 0)   // 3
+    // sul contorno esterno
+    ( #calc "$Ro*$c"  #calc "$Ro*$c"  0)  // 4
+    ( #calc "-$Ro*$c" #calc "$Ro*$c"  0)  // 5
+    ( #calc "-$Ro*$c" #calc "-$Ro*$c" 0)  // 6
+    ( #calc "$Ro*$c"  #calc "-$Ro*$c" 0)  // 7
+    // stessi punti a z = 1
+    ( #calc "$R*$c"   #calc "$R*$c"  1)   // 8
+    ( #calc "-$R*$c"  #calc "$R*$c"  1)   // 9
+    ( #calc "-$R*$c"  #calc "-$R*$c" 1)   // 10
+    ( #calc "$R*$c"   #calc "-$R*$c" 1)   // 11
+    ( #calc "$Ro*$c"  #calc "$Ro*$c"  1)  // 12
+    ( #calc "-$Ro*$c" #calc "$Ro*$c"  1)  // 13
+    ( #calc "-$Ro*$c" #calc "-$Ro*$c" 1)  // 14
+    ( #calc "$Ro*$c"  #calc "-$Ro*$c" 1)  // 15
+);
+
+blocks
+(
+    // ogni blocco: prima direzione = radiale (dal cilindro verso l'esterno, con la gradazione), seconda = azimutale
+    hex (0 4 5 1 8 12 13 9)   ($nR $nT 1) simpleGrading ($gR 1 1)   // sopra
+    hex (1 5 6 2 9 13 14 10)  ($nR $nT 1) simpleGrading ($gR 1 1)   // sinistra
+    hex (2 6 7 3 10 14 15 11) ($nR $nT 1) simpleGrading ($gR 1 1)   // sotto
+    hex (3 7 4 0 11 15 12 8)  ($nR $nT 1) simpleGrading ($gR 1 1)   // destra
+);
+
+edges
+(
+    // archi sul cilindro: punto intermedio a 90, 180, 270, 0 gradi
+    arc 0 1 (0 $R 0)       arc 1 2 (#neg $R 0 0)   arc 2 3 (0 #neg $R 0)   arc 3 0 ($R 0 0)
+    arc 8 9 (0 $R 1)       arc 9 10 (#neg $R 0 1)  arc 10 11 (0 #neg $R 1) arc 11 8 ($R 0 1)
+    // archi sul contorno esterno
+    arc 4 5 (0 $Ro 0)      arc 5 6 (#neg $Ro 0 0)  arc 6 7 (0 #neg $Ro 0)  arc 7 4 ($Ro 0 0)
+    arc 12 13 (0 $Ro 1)    arc 13 14 (#neg $Ro 0 1) arc 14 15 (0 #neg $Ro 1) arc 15 12 ($Ro 0 1)
+);
+
+boundary
+(
+    cilindro
+    {
+        type wall;
+        faces ((0 1 9 8) (1 2 10 9) (2 3 11 10) (3 0 8 11));
+    }
+    esterno
+    {
+        type patch;
+        faces ((4 5 13 12) (5 6 14 13) (6 7 15 14) (7 4 12 15));
+    }
+    frontEretro
+    {
+        type empty;
+        faces ((0 4 5 1) (1 5 6 2) (2 6 7 3) (3 7 4 0)
+               (8 12 13 9) (9 13 14 10) (10 14 15 11) (11 15 12 8));
+    }
+);
+
+// ************************************************************************* //

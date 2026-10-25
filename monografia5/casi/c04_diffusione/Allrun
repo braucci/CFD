@@ -1,0 +1,5 @@
+#!/bin/bash
+# Caso c04_diffusione: lo script Python genera mesh e condizioni al contorno e lancia tutte le varianti
+cd "${0%/*}" || exit 1
+python3 genera.py > log.genera 2>&1
+tail -n 4 log.genera

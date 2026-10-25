@@ -1,0 +1,6 @@
+#!/bin/bash
+# genera la mesh e ne verifica la qualita'
+cd "${0%/*}" || exit 1
+blockMesh > log.blockMesh 2>&1
+checkMesh -allGeometry -allTopology > log.checkMesh 2>&1
+grep -A30 "Checking geometry" log.checkMesh | grep "non-orthogonality\|skewness\|aspect ratio\|Mesh OK\|Failed"

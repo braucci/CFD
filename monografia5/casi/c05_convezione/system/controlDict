@@ -1,0 +1,39 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso c05_convezione -- trasporto di un gradino in un campo di velocita' uniforme
+  obliquo: il solutore 'functions' integra solo la function object scalarTransport,
+  con i campi U e phi forniti (e congelati) dal sotto-solutore incompressibleFluid.
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     foamRun;
+
+solver          functions;
+subSolver       incompressibleFluid;
+subSolverTime   0;
+
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+endTime         1500;           // iterazioni massime dello pseudo-tempo (ddtSchemes steadyState)
+deltaT          1;
+writeControl    timeStep;
+writeInterval   1500;
+writeFormat     ascii;
+writePrecision  8;
+timeFormat      general;
+timePrecision   6;
+runTimeModifiable true;
+
+functions
+{
+    #includeFunc scalarTransport(s, diffusivity=none)
+}
+
+// ************************************************************************* //

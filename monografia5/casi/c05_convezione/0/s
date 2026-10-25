@@ -1,0 +1,21 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      s;
+}
+// lo scalare trasportato: 1 dall'ingresso di sinistra, 0 da quello in basso.
+// Soluzione esatta (convezione pura): s = 1 sopra la diagonale y = x, 0 sotto.
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    sinistra    { type fixedValue;   value uniform 1; }
+    sotto       { type fixedValue;   value uniform 0; }
+    destra      { type zeroGradient; }
+    sopra       { type zeroGradient; }
+    frontEretro { type empty; }
+}

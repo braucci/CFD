@@ -1,0 +1,35 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    s
+    {
+        solver          PBiCGStab;      // matrice asimmetrica (convezione)
+        preconditioner  DILU;
+        tolerance       1e-10;
+        relTol          0;
+    }
+    "(p|U)"
+    {
+        solver          PCG; preconditioner DIC; tolerance 1e-6; relTol 0;
+    }
+}
+
+PIMPLE
+{
+    nCorrectors 1; nNonOrthogonalCorrectors 0; pRefCell 0; pRefValue 0;
+}
+
+relaxationFactors
+{
+    equations { s 0.7; }        // indispensabile: gli schemi limitati, trattati con correzione differita, divergono senza rilassamento
+}
+
+// ************************************************************************* //

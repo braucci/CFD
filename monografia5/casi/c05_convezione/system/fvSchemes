@@ -1,0 +1,46 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso c05_convezione -- lo script genera.py sostituisce la voce div(phi,s)
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         steadyState;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+divSchemes
+{
+    default         none;
+    div(phi,s)      Gauss vanLeer;        // <- lo schema convettivo in prova
+    div(phi,U)      Gauss linear;        // richiesto dal sotto-solutore (non usato)
+    div((nuEff*dev2(T(grad(U))))) Gauss linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+// ************************************************************************* //

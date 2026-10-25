@@ -1,0 +1,13 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      physicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+DT              DT [0 2 -1 0 0 0 0] 1;     // diffusivita' (il valore e' irrilevante nel problema stazionario)
+
+// ************************************************************************* //

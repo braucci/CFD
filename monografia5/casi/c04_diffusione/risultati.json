@@ -1,0 +1,862 @@
+{
+ "diffusione": [
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 0.0,
+   "skew": 6.661338147750904e-15,
+   "schema": "orthogonal",
+   "errore": 0.009095883394605986
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 0.0,
+   "skew": 6.661338147750904e-15,
+   "schema": "uncorrected",
+   "errore": 0.009095883394605986
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 0.0,
+   "skew": 6.661338147750904e-15,
+   "schema": "corrected",
+   "errore": 0.009095883394605986
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 0.0,
+   "skew": 6.661338147750904e-15,
+   "schema": "limited 0.5",
+   "errore": 0.009095883394605986
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 0.0,
+   "skew": 1.3322676295501807e-14,
+   "schema": "orthogonal",
+   "errore": 0.002677981551917674
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 0.0,
+   "skew": 1.3322676295501807e-14,
+   "schema": "uncorrected",
+   "errore": 0.002677981551917674
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 0.0,
+   "skew": 1.3322676295501807e-14,
+   "schema": "corrected",
+   "errore": 0.002677981551917674
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 0.0,
+   "skew": 1.3322676295501807e-14,
+   "schema": "limited 0.5",
+   "errore": 0.002677981551917674
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 0.0,
+   "skew": 2.3551386880256624e-14,
+   "schema": "orthogonal",
+   "errore": 0.000720485192007625
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 0.0,
+   "skew": 2.3551386880256624e-14,
+   "schema": "uncorrected",
+   "errore": 0.000720485192007625
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 0.0,
+   "skew": 2.3551386880256624e-14,
+   "schema": "corrected",
+   "errore": 0.000720485192007625
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 0.0,
+   "skew": 2.3551386880256624e-14,
+   "schema": "limited 0.5",
+   "errore": 0.000720485192007625
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 0.0,
+   "skew": 5.689893001203781e-14,
+   "schema": "orthogonal",
+   "errore": 0.00018646537098720994
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 0.0,
+   "skew": 5.689893001203781e-14,
+   "schema": "uncorrected",
+   "errore": 0.00018646537098720994
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 0.0,
+   "skew": 5.689893001203781e-14,
+   "schema": "corrected",
+   "errore": 0.00018646537098720994
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 0.0,
+   "skew": 5.689893001203781e-14,
+   "schema": "limited 0.5",
+   "errore": 0.00018646537098720994
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 26.565051177078207,
+   "skew": 0.5000000000000067,
+   "schema": "orthogonal",
+   "errore": 0.17148293988506896
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 26.565051177078207,
+   "skew": 0.5000000000000067,
+   "schema": "uncorrected",
+   "errore": 0.17221423247506895
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 26.565051177078207,
+   "skew": 0.5000000000000067,
+   "schema": "corrected",
+   "errore": 0.05984361136154459
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 26.565051177078207,
+   "skew": 0.5000000000000067,
+   "schema": "limited 0.5",
+   "errore": 0.07115412755506895
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 26.56505117707859,
+   "skew": 0.5000000000000133,
+   "schema": "orthogonal",
+   "errore": 0.17457996658681635
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 26.56505117707859,
+   "skew": 0.5000000000000133,
+   "schema": "uncorrected",
+   "errore": 0.17473909773681634
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 26.56505117707859,
+   "skew": 0.5000000000000133,
+   "schema": "corrected",
+   "errore": 0.03405199868624395
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 26.56505117707859,
+   "skew": 0.5000000000000133,
+   "schema": "limited 0.5",
+   "errore": 0.05990670541448362
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 26.565051177079315,
+   "skew": 0.5000000000000178,
+   "schema": "orthogonal",
+   "errore": 0.17512605671802187
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 26.565051177079315,
+   "skew": 0.5000000000000178,
+   "schema": "uncorrected",
+   "errore": 0.17516279617802188
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 26.565051177079315,
+   "skew": 0.5000000000000178,
+   "schema": "corrected",
+   "errore": 0.01826325833395842
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 26.565051177079315,
+   "skew": 0.5000000000000178,
+   "schema": "limited 0.5",
+   "errore": 0.054181474782728334
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 26.565051177080626,
+   "skew": 0.5000000000000355,
+   "schema": "orthogonal",
+   "errore": 0.17516407834438963
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 26.565051177080626,
+   "skew": 0.5000000000000355,
+   "schema": "uncorrected",
+   "errore": 0.17517288386038962
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 26.565051177080626,
+   "skew": 0.5000000000000355,
+   "schema": "corrected",
+   "errore": 0.009466277754087184
+  },
+  {
+   "mesh": "S=0.5",
+   "S": 0.5,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 26.565051177080626,
+   "skew": 0.5000000000000355,
+   "schema": "limited 0.5",
+   "errore": 0.051696955406086376
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 45.000000000000156,
+   "skew": 1.0000000000000042,
+   "schema": "orthogonal",
+   "errore": 0.13142934408248258
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 45.000000000000156,
+   "skew": 1.0000000000000042,
+   "schema": "uncorrected",
+   "errore": 0.1451547110299471
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 45.000000000000156,
+   "skew": 1.0000000000000042,
+   "schema": "corrected",
+   "errore": 0.07866703862881425
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 45.000000000000156,
+   "skew": 1.0000000000000042,
+   "schema": "limited 0.5",
+   "errore": 0.09535752294894295
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.000000000000384,
+   "skew": 1.0000000000000178,
+   "schema": "orthogonal",
+   "errore": 0.1326877696485762
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.000000000000384,
+   "skew": 1.0000000000000178,
+   "schema": "uncorrected",
+   "errore": 0.14086290174857619
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.000000000000384,
+   "skew": 1.0000000000000178,
+   "schema": "corrected",
+   "errore": 0.05328947053210242
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.000000000000384,
+   "skew": 1.0000000000000178,
+   "schema": "limited 0.5",
+   "errore": 0.09103156490635467
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.00000000000116,
+   "skew": 1.0000000000000178,
+   "schema": "orthogonal",
+   "errore": 0.13686011750195592
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.00000000000116,
+   "skew": 1.0000000000000178,
+   "schema": "uncorrected",
+   "errore": 0.14102793350195592
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.00000000000116,
+   "skew": 1.0000000000000178,
+   "schema": "corrected",
+   "errore": 0.032126764439268346
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.00000000000116,
+   "skew": 1.0000000000000178,
+   "schema": "limited 0.5",
+   "errore": 0.08927431352988519
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 45.0000000000023,
+   "skew": 1.0000000000000355,
+   "schema": "orthogonal",
+   "errore": 0.13889263145903707
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 45.0000000000023,
+   "skew": 1.0000000000000355,
+   "schema": "uncorrected",
+   "errore": 0.1408351927590371
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 45.0000000000023,
+   "skew": 1.0000000000000355,
+   "schema": "corrected",
+   "errore": 0.017599107707663125
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 45.0000000000023,
+   "skew": 1.0000000000000355,
+   "schema": "limited 0.5",
+   "errore": 0.0876030214133483
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 31.947260830212432,
+   "skew": 0.38066930642079666,
+   "schema": "orthogonal",
+   "errore": 0.029827951096394134
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 31.947260830212432,
+   "skew": 0.38066930642079666,
+   "schema": "uncorrected",
+   "errore": 0.032107014396394074
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 31.947260830212432,
+   "skew": 0.38066930642079666,
+   "schema": "corrected",
+   "errore": 0.01915319212553479
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 10,
+   "h": 0.1,
+   "nonorto": 31.947260830212432,
+   "skew": 0.38066930642079666,
+   "schema": "limited 0.5",
+   "errore": 0.019311737925534755
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.52851633759805,
+   "skew": 0.48298344535641763,
+   "schema": "orthogonal",
+   "errore": 0.017932052744049853
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.52851633759805,
+   "skew": 0.48298344535641763,
+   "schema": "uncorrected",
+   "errore": 0.019392063440731633
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.52851633759805,
+   "skew": 0.48298344535641763,
+   "schema": "corrected",
+   "errore": 0.008356197420800182
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "nonorto": 45.52851633759805,
+   "skew": 0.48298344535641763,
+   "schema": "limited 0.5",
+   "errore": 0.010604294420800131
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.446241597911005,
+   "skew": 0.5692285977978989,
+   "schema": "orthogonal",
+   "errore": 0.013786678308956413
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.446241597911005,
+   "skew": 0.5692285977978989,
+   "schema": "uncorrected",
+   "errore": 0.012625018764242574
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.446241597911005,
+   "skew": 0.5692285977978989,
+   "schema": "corrected",
+   "errore": 0.005468403789524623
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "nonorto": 45.446241597911005,
+   "skew": 0.5692285977978989,
+   "schema": "limited 0.5",
+   "errore": 0.00973040754237009
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 58.32229047759173,
+   "skew": 0.6092071378243824,
+   "schema": "orthogonal",
+   "errore": 0.0102636408493183
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 58.32229047759173,
+   "skew": 0.6092071378243824,
+   "schema": "uncorrected",
+   "errore": 0.009483605849318344
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 58.32229047759173,
+   "skew": 0.6092071378243824,
+   "schema": "corrected",
+   "errore": 0.002669590105388031
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "nonorto": 58.32229047759173,
+   "skew": 0.6092071378243824,
+   "schema": "limited 0.5",
+   "errore": 0.00861812110263327
+  }
+ ],
+ "gradiente": [
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "Gauss linear",
+   "errore": 0.01026910487196763
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "leastSquares",
+   "errore": 0.01026910487196763
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "Gauss pointLinear",
+   "errore": 8.411338227080127e-06
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "Gauss linear",
+   "errore": 0.0028839100213373273
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "leastSquares",
+   "errore": 0.0028839100213373273
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "Gauss pointLinear",
+   "errore": 5.927240997794022e-07
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "Gauss linear",
+   "errore": 0.0007643504483449995
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "leastSquares",
+   "errore": 0.0007643504483449995
+  },
+  {
+   "mesh": "quadrato",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "Gauss pointLinear",
+   "errore": 3.9873751148671964e-08
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "Gauss linear",
+   "errore": 0.037693600269934
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "leastSquares",
+   "errore": 0.037693600269934
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "Gauss pointLinear",
+   "errore": 0.020887735068124764
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "Gauss linear",
+   "errore": 0.010635727321489983
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "leastSquares",
+   "errore": 0.010635727321489983
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "Gauss pointLinear",
+   "errore": 0.006238802517940186
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "Gauss linear",
+   "errore": 0.0028209998800280633
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "leastSquares",
+   "errore": 0.0028209998800280633
+  },
+  {
+   "mesh": "S=1",
+   "S": 1.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "Gauss pointLinear",
+   "errore": 0.00169342472285768
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "Gauss linear",
+   "errore": 1.1597464625002354
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "leastSquares",
+   "errore": 0.07876530620025604
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 20,
+   "h": 0.05,
+   "schema": "Gauss pointLinear",
+   "errore": 0.7908909113756326
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "Gauss linear",
+   "errore": 1.0168214881362634
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "leastSquares",
+   "errore": 0.049890265136035714
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 40,
+   "h": 0.025,
+   "schema": "Gauss pointLinear",
+   "errore": 1.0936446555020032
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "Gauss linear",
+   "errore": 1.2568457190859146
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "leastSquares",
+   "errore": 0.0321099754029884
+  },
+  {
+   "mesh": "perturbata",
+   "S": 0.0,
+   "N": 80,
+   "h": 0.0125,
+   "schema": "Gauss pointLinear",
+   "errore": 1.5738825045747362
+  }
+ ]
+}

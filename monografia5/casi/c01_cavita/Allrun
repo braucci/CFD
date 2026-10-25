@@ -1,0 +1,9 @@
+#!/bin/bash
+# Caso c01_cavita: cavita' con coperchio mobile, Re = 10 (tutorial storico di OpenFOAM)
+cd "${0%/*}" || exit 1
+blockMesh  > log.blockMesh 2>&1          # la mesh
+checkMesh  > log.checkMesh 2>&1          # la sua verifica
+foamRun    > log.foamRun 2>&1            # il solutore indicato in controlDict (incompressibleFluid)
+foamPostProcess -func "mag(U)" -latestTime > log.foamPostProcess 2>&1   # un campo derivato, a calcolo finito
+grep -c "^Time = " log.foamRun | xargs echo "passi temporali eseguiti:"
+tail -n 3 log.foamRun

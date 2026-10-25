@@ -1,0 +1,28 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso c04_diffusione -- conduzione stazionaria con laplacianFoam
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     laplacianFoam;
+
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+endTime         3;              // tre "passi": con ddtSchemes steadyState sono iterazioni esterne
+deltaT          1;
+writeControl    timeStep;
+writeInterval   3;
+writeFormat     ascii;
+writePrecision  10;
+timeFormat      general;
+timePrecision   6;
+runTimeModifiable true;
+
+// ************************************************************************* //

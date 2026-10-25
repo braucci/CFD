@@ -1,0 +1,142 @@
+[
+ {
+  "N": 40,
+  "schema": "upwind",
+  "min": 9.094947e-13,
+  "max": 1.0,
+  "spessore": 0.41262163281822123,
+  "errore_medio": 0.1075526363864848,
+  "iterazioni": 60,
+  "residuo_finale": 5.8775656e-11
+ },
+ {
+  "N": 40,
+  "schema": "linear",
+  "min": -0.056094035,
+  "max": 1.0560968,
+  "spessore": 0.044900982699614456,
+  "errore_medio": 0.02190197423657156,
+  "iterazioni": 1500,
+  "residuo_finale": 6.822243e-06
+ },
+ {
+  "N": 40,
+  "schema": "linearUpwind",
+  "min": -0.049436856,
+  "max": 1.0494369,
+  "spessore": 0.11936910859387151,
+  "errore_medio": 0.03977449803431079,
+  "iterazioni": 62,
+  "residuo_finale": 9.7924572e-11
+ },
+ {
+  "N": 40,
+  "schema": "QUICK",
+  "min": -0.046038867,
+  "max": 1.0460389,
+  "spessore": 0.09993754903979979,
+  "errore_medio": 0.03389345705042577,
+  "iterazioni": 171,
+  "residuo_finale": 9.2879614e-11
+ },
+ {
+  "N": 40,
+  "schema": "vanLeer",
+  "min": -8.4854463e-30,
+  "max": 1.0,
+  "spessore": 0.1346681972662775,
+  "errore_medio": 0.038110388633033045,
+  "iterazioni": 145,
+  "residuo_finale": 9.289603e-11
+ },
+ {
+  "N": 40,
+  "schema": "limitedLinear 1",
+  "min": -3.4291661e-15,
+  "max": 1.0,
+  "spessore": 0.10857244366604846,
+  "errore_medio": 0.031649198781937685,
+  "iterazioni": 1500,
+  "residuo_finale": 4.8415832e-06
+ },
+ {
+  "N": 40,
+  "schema": "Minmod",
+  "min": 1.5098186e-25,
+  "max": 1.0,
+  "spessore": 0.18726196501698644,
+  "errore_medio": 0.05159971261325181,
+  "iterazioni": 1500,
+  "residuo_finale": 0.00015291124
+ },
+ {
+  "N": 40,
+  "schema": "SuperBee",
+  "fallito": true
+ },
+ {
+  "N": 40,
+  "schema": "MUSCL",
+  "fallito": true
+ },
+ {
+  "N": 40,
+  "schema": "limitedLinear 0.2",
+  "min": -6.5492333e-08,
+  "max": 1.0003662,
+  "spessore": 0.04510649038916781,
+  "errore_medio": 0.015738135899278045,
+  "iterazioni": 1500,
+  "residuo_finale": 8.5673635e-05
+ },
+ {
+  "N": 80,
+  "schema": "upwind",
+  "min": 8.2718061e-25,
+  "max": 1.0,
+  "spessore": 0.28569829019092063,
+  "errore_medio": 0.07824793961689663,
+  "iterazioni": 100,
+  "residuo_finale": 8.2187396e-11
+ },
+ {
+  "N": 80,
+  "schema": "linear",
+  "min": -0.072963805,
+  "max": 1.0730014,
+  "spessore": 0.023735929484504703,
+  "errore_medio": 0.013791516088404987,
+  "iterazioni": 1500,
+  "residuo_finale": 1.2268705e-05
+ },
+ {
+  "N": 80,
+  "schema": "linearUpwind",
+  "min": -0.050688403,
+  "max": 1.0506884,
+  "spessore": 0.07002961294663662,
+  "errore_medio": 0.024311229347541,
+  "iterazioni": 103,
+  "residuo_finale": 7.2446218e-11
+ },
+ {
+  "N": 80,
+  "schema": "vanLeer",
+  "min": -1.2759896e-23,
+  "max": 1.0,
+  "spessore": 0.07906244826521303,
+  "errore_medio": 0.023114491435601597,
+  "iterazioni": 266,
+  "residuo_finale": 8.7148533e-11
+ },
+ {
+  "N": 80,
+  "schema": "limitedLinear 1",
+  "min": -4.2488952e-15,
+  "max": 1.0,
+  "spessore": 0.05809163228759684,
+  "errore_medio": 0.01714303883452114,
+  "iterazioni": 326,
+  "residuo_finale": 2.9094744e-07
+ }
+]

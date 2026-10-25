@@ -1,0 +1,44 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  Caso c04_diffusione -- schemi di discretizzazione; lo script genera.py sostituisce lo schema del laplaciano
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         steadyState;          // nessun termine temporale: equazione di Laplace
+}
+
+gradSchemes
+{
+    default         Gauss linear;         // gradiente per la correzione non ortogonale e per grad(T)
+}
+
+divSchemes
+{
+    default         none;
+}
+
+laplacianSchemes
+{
+    default         none;
+    laplacian(DT,T) Gauss linear corrected;   // <interpolazione di DT> <schema della derivata normale>
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+// ************************************************************************* //
