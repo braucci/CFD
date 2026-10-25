@@ -1,0 +1,5 @@
+#!/bin/bash
+# Caso c10_gradino: gradino a valle con tre modelli di turbolenza
+cd "${0%/*}" || exit 1
+python3 genera.py > log.genera 2>&1
+tail -n 4 log.genera

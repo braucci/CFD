@@ -1,0 +1,28 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+application     foamRun;
+solver          incompressibleFluid;
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+endTime         3000;
+deltaT          1;
+writeControl    timeStep;
+writeInterval   3000;
+purgeWrite      0;
+writeFormat     ascii;
+writePrecision  8;
+timeFormat      general;
+timePrecision   6;
+runTimeModifiable true;
+
+functions
+{
+    #includeFunc wallShearStress(patches=(lastra))     // scrive il campo wallShearStress all'istante di scrittura
+    #includeFunc yPlus                                 // y+ nella prima cella di ogni parete
+}

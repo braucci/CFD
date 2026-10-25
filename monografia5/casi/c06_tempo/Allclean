@@ -1,0 +1,6 @@
+#!/bin/bash
+# riporta i due sotto-casi allo stato iniziale
+cd "${0%/*}" || exit 1
+rm -rf diffusione/constant/polyMesh diffusione/log.* diffusione/[1-9]* diffusione/0.[0-9]* diffusione/postProcessing diffusione/0/T
+rm -rf convezione/constant/polyMesh convezione/log.* convezione/[1-9]* convezione/0.[0-9]* convezione/postProcessing convezione/0/s
+rm -f log.genera risultati.json profili.npz

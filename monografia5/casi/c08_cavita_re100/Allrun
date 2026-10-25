@@ -1,0 +1,5 @@
+#!/bin/bash
+# Caso c08_cavita_re100: cavita' a Re = 100, 128 x 128; SIMPLE, rilassamento, schemi, PISO, solutori (Cap. 7 e 8)
+cd "${0%/*}" || exit 1
+python3 genera.py tutto > log.genera 2>&1
+tail -n 12 log.genera

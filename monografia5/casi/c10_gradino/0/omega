@@ -1,0 +1,20 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      omega;
+}
+// omega = k / nu_t con nu_t = 5 nu = 5e-7: 1953 1/s
+dimensions      [0 0 -1 0 0 0 0];
+internalField   uniform 1953;
+boundaryField
+{
+    ingresso    { type fixedValue; value uniform 1953; }
+    uscita      { type inletOutlet; inletValue uniform 1953; value uniform 1953; }
+    sopra       { type omegaWallFunction; value uniform 1953; }
+    monte       { type omegaWallFunction; value uniform 1953; }
+    gradino     { type omegaWallFunction; value uniform 1953; }
+    fondo       { type omegaWallFunction; value uniform 1953; }   // valore di parete: raccordo fra sottostrato e regione logaritmica
+    frontEretro { type empty; }
+}

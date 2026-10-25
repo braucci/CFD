@@ -1,0 +1,20 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      nuTilda;
+}
+// Spalart-Allmaras: nuTilda = 3 nu = 4,5e-5 in corrente libera
+dimensions      [0 2 -1 0 0 0 0];
+internalField   uniform 4.5e-5;
+boundaryField
+{
+    ingresso    { type fixedValue; value uniform 4.5e-5; }
+    uscita      { type inletOutlet; inletValue uniform 4.5e-5; value uniform 4.5e-5; }
+    sopra       { type fixedValue; value uniform 0; }
+    monte       { type fixedValue; value uniform 0; }
+    gradino     { type fixedValue; value uniform 0; }
+    fondo       { type fixedValue; value uniform 0; }
+    frontEretro { type empty; }
+}

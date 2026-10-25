@@ -1,0 +1,10 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      physicalProperties;
+}
+viscosityModel  constant;
+nu              1.5e-05 [m^2/s];     // aria: Re_h = 44,2 x 0,0127 / 1,5e-5 = 37 400

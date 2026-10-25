@@ -1,0 +1,19 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      k;
+}
+// k = 1,5 (U I)^2 con I = 1%: 1,5e-4 m^2/s^2
+dimensions      [0 2 -2 0 0 0 0];
+internalField   uniform 1.5e-4;
+boundaryField
+{
+    ingresso    { type fixedValue; value uniform 1.5e-4; }
+    uscita      { type inletOutlet; inletValue uniform 1.5e-4; value uniform 1.5e-4; }
+    sopra       { type slip; }
+    simmetria   { type symmetryPlane; }
+    lastra      { type kqRWallFunction; value uniform 1.5e-4; }   // gradiente nullo (con e senza funzioni di parete)
+    frontEretro { type empty; }
+}

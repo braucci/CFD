@@ -1,0 +1,42 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// Gradino a valle (Driver & Seegmiller 1985): unita' = h = 12,7 mm; canale alto 8h a monte, 9h a valle
+convertToMeters 0.0127;
+
+vertices
+(
+    (-60 0 0)  (0 0 0)  (40 0 0)       // 0 1 2  parete inferiore a monte (y = 0) e asse del canale a valle
+    (-60 8 0)  (0 8 0)  (40 8 0)       // 3 4 5  parete superiore
+    (0 -1 0)   (40 -1 0)               // 6 7    fondo a valle del gradino
+    (-60 0 1)  (0 0 1)  (40 0 1)
+    (-60 8 1)  (0 8 1)  (40 8 1)
+    (0 -1 1)   (40 -1 1)
+);
+
+// gradazione in y: prima cella 0,055 h alle pareti (y+ ~ 40), celle che crescono verso il centro
+blocks
+(
+    hex (0 1 4 3 8 9 12 11)   (70 60 1)  simpleGrading (0.1 ((0.5 0.5 12) (0.5 0.5 0.08333)) 1)   // a monte
+    hex (1 2 5 4 9 10 13 12)  (160 60 1) simpleGrading (6   ((0.5 0.5 12) (0.5 0.5 0.08333)) 1)   // a valle, sopra il livello del gradino
+    hex (6 7 2 1 14 15 10 9)  (160 24 1) simpleGrading (6   ((0.5 0.5 6)  (0.5 0.5 0.16667)) 1)   // a valle, dietro il gradino
+);
+
+edges ();
+
+boundary
+(
+    ingresso { type patch; faces ((0 8 11 3)); }
+    uscita   { type patch; faces ((2 5 13 10) (7 2 10 15)); }
+    sopra    { type wall;  faces ((3 11 12 4) (4 12 13 5)); }
+    monte    { type wall;  faces ((0 1 9 8)); }           // parete inferiore a monte del gradino
+    gradino  { type wall;  faces ((1 6 14 9)); }          // la faccia verticale del gradino
+    fondo    { type wall;  faces ((6 7 15 14)); }         // il fondo a valle: qui si misura il riattacco
+    frontEretro { type empty; faces ((0 3 4 1) (1 4 5 2) (6 1 2 7) (8 9 12 11) (9 10 13 12) (14 15 10 9)); }
+);
+
+mergePatchPairs ();

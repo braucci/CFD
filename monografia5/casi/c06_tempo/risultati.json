@@ -1,0 +1,170 @@
+{
+ "diffusione": [
+  {
+   "schema": "Euler",
+   "dt": 0.02,
+   "errore": 0.03356673435453039
+  },
+  {
+   "schema": "Euler",
+   "dt": 0.01,
+   "errore": 0.017437342954530366
+  },
+  {
+   "schema": "Euler",
+   "dt": 0.005,
+   "errore": 0.008894525854530377
+  },
+  {
+   "schema": "Euler",
+   "dt": 0.0025,
+   "errore": 0.004493530054530348
+  },
+  {
+   "schema": "backward",
+   "dt": 0.02,
+   "errore": 0.007474390254530394
+  },
+  {
+   "schema": "backward",
+   "dt": 0.01,
+   "errore": 0.001664163454530354
+  },
+  {
+   "schema": "backward",
+   "dt": 0.005,
+   "errore": 0.00039784405453036076
+  },
+  {
+   "schema": "backward",
+   "dt": 0.0025,
+   "errore": 9.898885453035744e-05
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "dt": 0.02,
+   "errore": 0.005508756654530378
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "dt": 0.01,
+   "errore": 0.0014395219545303983
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "dt": 0.005,
+   "errore": 0.0003705417545303846
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "dt": 0.0025,
+   "errore": 9.532515453036794e-05
+  },
+  {
+   "schema": "CrankNicolson 0.9",
+   "dt": 0.02,
+   "errore": 0.007070259054530348
+  },
+  {
+   "schema": "CrankNicolson 0.9",
+   "dt": 0.01,
+   "errore": 0.0023035422545303885
+  },
+  {
+   "schema": "CrankNicolson 0.9",
+   "dt": 0.005,
+   "errore": 0.0008247620545303591
+  },
+  {
+   "schema": "CrankNicolson 0.9",
+   "dt": 0.0025,
+   "errore": 0.00032821585453035595
+  }
+ ],
+ "convezione": [
+  {
+   "schema": "Euler",
+   "Co": 0.5,
+   "errore": 0.23237381509567545,
+   "max": 0.7686910482,
+   "min": -6.204882423e-14
+  },
+  {
+   "schema": "Euler",
+   "Co": 1.0,
+   "errore": 0.3530153738956754,
+   "max": 0.6477575806,
+   "min": -1.193124292e-15
+  },
+  {
+   "schema": "Euler",
+   "Co": 2.0,
+   "errore": 0.4852594433956754,
+   "max": 0.5160611269,
+   "min": -7.960577827e-16
+  },
+  {
+   "schema": "Euler",
+   "Co": 4.0,
+   "errore": 0.6091689930956754,
+   "max": 0.3932881726,
+   "min": -3.157479521e-16
+  },
+  {
+   "schema": "backward",
+   "Co": 0.5,
+   "errore": 0.04014651570965222,
+   "max": 0.9947818224,
+   "min": -2.846952701e-05
+  },
+  {
+   "schema": "backward",
+   "Co": 1.0,
+   "errore": 0.07661070379595591,
+   "max": 0.9817030044,
+   "min": -0.004896948939
+  },
+  {
+   "schema": "backward",
+   "Co": 2.0,
+   "errore": 0.1833810843903042,
+   "max": 0.9233224659,
+   "min": -0.05981387689
+  },
+  {
+   "schema": "backward",
+   "Co": 4.0,
+   "errore": 0.3466215262233304,
+   "max": 0.7775989674,
+   "min": -0.1389511
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "Co": 0.5,
+   "errore": 0.03032767200066888,
+   "max": 0.9975294248,
+   "min": -6.685341832e-08
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "Co": 1.0,
+   "errore": 0.03984372920965218,
+   "max": 0.9934979938,
+   "min": -1.14283449e-05
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "Co": 2.0,
+   "errore": 0.07776733969595595,
+   "max": 0.9785278479,
+   "min": -0.003186632413
+  },
+  {
+   "schema": "CrankNicolson 1",
+   "Co": 4.0,
+   "errore": 0.2026075341903042,
+   "max": 0.9168425554,
+   "min": -0.0689170641
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      nut;
+}
+// viscosita' turbolenta: calcolata dal modello all'interno e sui patch 'calculated';
+// sulla lastra la FUNZIONE DI PARETE decide lo sforzo: nutkWallFunction (y+ ~ 30-300)
+// oppure nutLowReWallFunction (mesh risolta, y+ ~ 1): lo script sostituisce il tipo.
+dimensions      [0 2 -1 0 0 0 0];
+internalField   uniform 0;
+boundaryField
+{
+    ingresso    { type calculated; value uniform 0; }
+    uscita      { type calculated; value uniform 0; }
+    sopra       { type nutkWallFunction; value uniform 0; }
+    monte       { type nutkWallFunction; value uniform 0; }
+    gradino     { type nutkWallFunction; value uniform 0; }
+    fondo       { type nutkWallFunction; value uniform 0; }
+    frontEretro { type empty; }
+}

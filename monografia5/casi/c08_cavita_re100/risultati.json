@@ -1,0 +1,197 @@
+{
+ "base": {
+  "iterazioni": 3810,
+  "tempo": 71.4756,
+  "convergenza": true,
+  "err_u": 0.004670987200000087,
+  "err_v": 0.008787834399999944,
+  "psi_min_info": "vedi fig08",
+  "res_finali": {
+   "Ux": 8.39726e-07,
+   "Uy": 9.9946e-07,
+   "p": 7.08565e-07
+  }
+ },
+ "rilassamento": [
+  {
+   "alpha_U": 0.7,
+   "alpha_p": 0.3,
+   "SIMPLEC": false,
+   "iterazioni": 3810,
+   "tempo": 68.7429,
+   "convergenza": true,
+   "res_p_finale": 7.08565e-07
+  },
+  {
+   "alpha_U": 0.5,
+   "alpha_p": 0.2,
+   "SIMPLEC": false,
+   "iterazioni": 6000,
+   "tempo": 108.871,
+   "convergenza": false,
+   "res_p_finale": 2.91578e-06
+  },
+  {
+   "alpha_U": 0.9,
+   "alpha_p": 0.1,
+   "SIMPLEC": false,
+   "iterazioni": 1345,
+   "tempo": 29.0756,
+   "convergenza": true,
+   "res_p_finale": 9.86492e-07
+  },
+  {
+   "alpha_U": 0.7,
+   "alpha_p": 0.5,
+   "SIMPLEC": false,
+   "iterazioni": 3810,
+   "tempo": 70.6866,
+   "convergenza": true,
+   "res_p_finale": 4.18929e-07
+  },
+  {
+   "alpha_U": 0.8,
+   "alpha_p": 0.4,
+   "SIMPLEC": false,
+   "iterazioni": 2435,
+   "tempo": 47.4946,
+   "convergenza": true,
+   "res_p_finale": 5.65932e-07
+  },
+  {
+   "alpha_U": 0.9,
+   "alpha_p": 1.0,
+   "SIMPLEC": true,
+   "iterazioni": 1221,
+   "tempo": 26.5745,
+   "convergenza": true,
+   "res_p_finale": 4.08241e-07
+  },
+  {
+   "alpha_U": 0.95,
+   "alpha_p": 1.0,
+   "SIMPLEC": true,
+   "iterazioni": 639,
+   "tempo": 17.6701,
+   "convergenza": true,
+   "res_p_finale": 4.04991e-07
+  }
+ ],
+ "schemi_32": {
+  "upwind": {
+   "iterazioni": 360,
+   "err_u": 0.023189103200000033,
+   "err_v": 0.021737557200000007,
+   "convergenza": true
+  },
+  "linear": {
+   "iterazioni": 356,
+   "err_u": 0.004219647200000343,
+   "err_v": 0.009790766399999928,
+   "convergenza": true
+  },
+  "linearUpwind": {
+   "iterazioni": 416,
+   "err_u": 0.004206134800000316,
+   "err_v": 0.008598587599999902,
+   "convergenza": true
+  }
+ },
+ "piso": {
+  "tempo_calcolo": 173.684,
+  "passi": 5000,
+  "Co_max": 0.499809,
+  "storia": [
+   {
+    "t": 5.0,
+    "err_u": 0.016916141479999924,
+    "err_v": 0.01355791079999999,
+    "scarto_da_simple": 0.01783635
+   },
+   {
+    "t": 10.0,
+    "err_u": 0.003940826000000064,
+    "err_v": 0.008081401599999954,
+    "scarto_da_simple": 0.0008317499999999922
+   },
+   {
+    "t": 15.0,
+    "err_u": 0.004924706000000084,
+    "err_v": 0.009032308799999944,
+    "scarto_da_simple": 0.0002864500000000006
+   },
+   {
+    "t": 20.0,
+    "err_u": 0.004990448800000047,
+    "err_v": 0.009096053999999937,
+    "scarto_da_simple": 0.00036120000000000596
+   }
+  ]
+ },
+ "solutori": [
+  {
+   "solutore": "GAMG GaussSeidel relTol 0.1",
+   "tempo": 2.28456,
+   "iter_p_medie": 2.34,
+   "iter_p_totali": 234,
+   "res_p_100": 0.00151671,
+   "ok": true
+  },
+  {
+   "solutore": "GAMG GaussSeidel relTol 0.01",
+   "tempo": 3.22934,
+   "iter_p_medie": 5.29,
+   "iter_p_totali": 529,
+   "res_p_100": 0.00144235,
+   "ok": true
+  },
+  {
+   "solutore": "GAMG DICGaussSeidel relTol 0.1",
+   "tempo": 2.05605,
+   "iter_p_medie": 2.09,
+   "iter_p_totali": 209,
+   "res_p_100": 0.00149547,
+   "ok": true
+  },
+  {
+   "solutore": "PCG DIC relTol 0.1",
+   "tempo": 3.64038,
+   "iter_p_medie": 75.47,
+   "iter_p_totali": 7547,
+   "res_p_100": 0.00151953,
+   "ok": true
+  },
+  {
+   "solutore": "PCG DIC relTol 0.01",
+   "tempo": 6.55252,
+   "iter_p_medie": 154.93,
+   "iter_p_totali": 15493,
+   "res_p_100": 0.00144003,
+   "ok": true
+  },
+  {
+   "solutore": "PCG GAMG relTol 0.1",
+   "tempo": 2.22665,
+   "iter_p_medie": 1.95,
+   "iter_p_totali": 195,
+   "res_p_100": 0.00141968,
+   "ok": true
+  },
+  {
+   "solutore": "smoothSolver GaussSeidel relTol 0.1",
+   "tempo": 24.7878,
+   "iter_p_medie": 1000.0,
+   "iter_p_totali": 100000,
+   "res_p_100": 0.00848518,
+   "ok": true
+  },
+  {
+   "solutore": "PBiCGStab DIC relTol 0.1",
+   "tempo": 3.71279,
+   "iter_p_medie": 36.26,
+   "iter_p_totali": 3626,
+   "res_p_100": 0.00147303,
+   "ok": true
+  }
+ ]
+}

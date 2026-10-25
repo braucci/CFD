@@ -1,0 +1,5 @@
+#!/bin/bash
+# Caso c06_tempo: schemi temporali (diffusione) e numero di Courant (convezione)
+cd "${0%/*}" || exit 1
+python3 genera.py > log.genera 2>&1
+tail -n 5 log.genera

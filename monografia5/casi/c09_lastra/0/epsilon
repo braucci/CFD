@@ -1,0 +1,19 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      epsilon;
+}
+// epsilon = C_mu k^2 / nu_t = 0,09 (1,5e-4)^2 / 5e-7 = 4,05e-3 m^2/s^3
+dimensions      [0 2 -3 0 0 0 0];
+internalField   uniform 4.05e-3;
+boundaryField
+{
+    ingresso    { type fixedValue; value uniform 4.05e-3; }
+    uscita      { type inletOutlet; inletValue uniform 4.05e-3; value uniform 4.05e-3; }
+    sopra       { type slip; }
+    simmetria   { type symmetryPlane; }
+    lastra      { type epsilonWallFunction; value uniform 4.05e-3; }
+    frontEretro { type empty; }
+}
